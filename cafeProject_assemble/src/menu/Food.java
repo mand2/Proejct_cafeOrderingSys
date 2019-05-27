@@ -55,7 +55,7 @@ class Choco extends Food {
 
 		super();
 		setPrice(6000);
-		setName("초코케이크");
+		setName("초코케익");
 	}
 
 	@Override

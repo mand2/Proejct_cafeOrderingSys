@@ -48,34 +48,16 @@ public class LocoManager {
 		System.out.println("PLEASE COMPLETE A FORM!");
 		System.out.print("ID:");
 		String id = Util.keyboard.nextLine();
-
-		int index = searchIndex(id);
-
-		cafe: if (index < 0) {
-			System.out.print("PASSWORD:");
-			String pw = Util.keyboard.nextLine();
-			System.out.print("Name:");
-			String name = Util.keyboard.nextLine();
-			System.out.print("Phone Number:");
-			String pNum = Util.keyboard.nextLine();
-
-			m = new MemberInfo(id, pw, name, pNum);
-			mem[cnt++] = m;
-			System.out.println("THANKS FOR JOINING US.");
-			bit.put(id, pw);
-
-		} else {
+		
+		while( !(searchIndex(id)<0) ) {
 			System.out.println("사용중인 ID입니다.다시 입력바랍니다.");
-
-			System.out.print("ID:");
 			id = Util.keyboard.nextLine();
+		}
 
 			System.out.print("PASSWORD:");
 			String pw = Util.keyboard.nextLine();
-
 			System.out.print("Name:");
 			String name = Util.keyboard.nextLine();
-
 			System.out.print("Phone Number:");
 			String pNum = Util.keyboard.nextLine();
 
@@ -83,8 +65,6 @@ public class LocoManager {
 			mem[cnt++] = m;
 			System.out.println("THANKS FOR JOINING US.");
 			bit.put(id, pw);
-
-		}
 	}
 
 	public void editInfo() {
@@ -109,36 +89,18 @@ public class LocoManager {
 	}
 
 	public void deleteInfo() {
-		System.out.println("insert ID: ");
+		System.out.println("insert ID ");
 		String id = Util.keyboard.nextLine();
-		System.out.print("intsert Password: ");
-		String pw = Util.keyboard.nextLine();
-
 		int index = searchIndex(id);
 		if (index < 0) {
 			System.out.println("wrong ID!");
-
-		} else if (bit.containsKey(id)) {
-			if (bit.get(id).equals(pw)) {
-				System.out.println("회원 정보가 확인되었습니다. 아이디를 삭제하겠습니다.");
-				System.out.println("--------------------------------------");
-				if (bit.containsKey(id) && bit.containsValue(pw)) {
-					// for (int i = index; i < cnt - 1; i++) {
-					// mem[i] = mem[i + 1];
-					System.out.println("Your ID has been successfully deleted!");
-					System.out.println("--------------------------------------");
-				}
-				bit.remove(id, pw);
-				cnt--;
-				{
-					// for (int i = index; i < cnt - 1; i++) {
-					// mem[i] = mem[i + 1];
-					// System.out.println("Your ID has been successfully deleted!");
-					// }
-					// bit.remove(id);
-
-				}
+		} else {
+			for (int i = index; i < cnt; i++) {
+				mem[i] = mem[i + 1];
 			}
+			bit.remove(id);
+			cnt--;
+			System.out.println("Your ID has been successfully deleted!");
 		}
 	}
 
@@ -234,7 +196,7 @@ public class LocoManager {
 									break;
 
 								case 3:
-									System.out.println("계산을 하는 공간입니다 / 영수증을 볼 수 있습니다.");
+									System.out.println("영수증을 볼 수 있습니다.");
 									break;
 								case 4:
 									eventMenu();
