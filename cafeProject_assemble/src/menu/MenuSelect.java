@@ -84,7 +84,7 @@ public class MenuSelect {
 			System.out.println("\t어떤 메뉴를 원하십니까? ");
 			System.out.printf("%d.음료 %d.푸드 3.주문보기 4.결제 5.나가기\n", Menu_Inter.BEVERAGE, Menu_Inter.FOOD);
 			System.out.println("========================================");
-
+			System.out.print("Select Number:");
 			try {
 				// choice 음료냐 푸드냐를 선택하는 변수값
 				int choice = Util.keyboard.nextInt();
@@ -107,7 +107,7 @@ public class MenuSelect {
 					break;
 
 				case 5:
-					System.out.println("나갑니다.");
+					System.out.println("[Back to the Menu.]");
 					Util.keyboard.nextLine();
 					return;
 				}// switch

@@ -66,7 +66,7 @@ public class Order {
 	}
 	
 	//주문시간 프린트.
-	String getOrderTime() {
+	public String getOrderTime() {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		String result = format.format(new Date());
