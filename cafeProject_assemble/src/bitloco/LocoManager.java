@@ -66,23 +66,7 @@ public class LocoManager {
 
 		} else {
 			System.out.println("사용중인 ID입니다.다시 입력바랍니다.");
-
-			System.out.print("ID:");
-			id = Util.keyboard.nextLine();
-
-			System.out.print("PASSWORD:");
-			String pw = Util.keyboard.nextLine();
-
-			System.out.print("Name:");
-			String name = Util.keyboard.nextLine();
-
-			System.out.print("Phone Number:");
-			String pNum = Util.keyboard.nextLine();
-
-			m = new MemberInfo(id, pw, name, pNum);
-			mem[cnt++] = m;
-			System.out.println("THANKS FOR JOINING US.");
-			bit.put(id, pw);
+			return;
 
 		}
 	}
