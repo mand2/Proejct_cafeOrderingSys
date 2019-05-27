@@ -11,7 +11,7 @@ public interface Menu_Inter {
 	//메뉴 선택 시 쓰는 것들 
 	// 음료 & 푸드
 	public int AMERICANO = 1, CAPPUCHINO =2, SPARKLING =3, LEMONADE=4
-	,CHEEZE = 5, CHOCO = 6, COOCKIES = 7, SANDWITCHES =8;
+	,CHEEZE = 5, CHOCO = 6, COOCKIES = 7, SANDWITCHES =8, SCONE =9, HONEY_BREAD=10; 
 	
 	
 	//음료인가 푸드인가

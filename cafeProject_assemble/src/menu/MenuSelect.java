@@ -35,6 +35,8 @@ public class MenuSelect {
 		menu.add(new Choco());
 		menu.add(new Cookies());
 		menu.add(new Sandwiches());
+		menu.add(new Scone());
+		menu.add(new Honeybread());
 
 		for (Menu m : menu) {
 			m.setCnt(cnt);
@@ -136,18 +138,20 @@ public class MenuSelect {
 	// 결제로 넘어가게 하는 주문창
 	void showBill() {
 		if (order.size() != 0) {
+			System.out.println("■■■■■■■■■■■■■■ 전체  주문 ■■■■■■■■■■■■■■ ");
+			for (Menu o : order) {
+				o.showProduct();
+			}
+//				deleteOrder();
 			System.out.println("....결제창으로 넘어갑니다....");
-			
-			Order order = new Order();
-			order.billFormat(this);
 			// TODO 결제메뉴로~
-//			for(Menu m : order ) {
-//				orderBill.orderMenu.add(m);
-//			}
-//			for(Menu m1 : orderBill.orderMenu ) {
-//				m1.showProduct();
-//			}
-			
+			Order orderBill = new Order();
+			for (Menu m : order) {
+				orderBill.orderMenu.add(m);
+			}
+			for (Menu m1 : orderBill.orderMenu) {
+				m1.showProduct();
+			}
 
 		} else {
 			System.out.println("주문 내역이 없습니다.");
@@ -188,7 +192,7 @@ public class MenuSelect {
 			select = Util.keyboard.nextInt();
 		}
 
-		while (choice == Menu_Inter.FOOD && select < Menu_Inter.CHEEZE || select > Menu_Inter.SANDWITCHES) {
+		while (choice == Menu_Inter.FOOD && select < Menu_Inter.CHEEZE || select > Menu_Inter.HONEY_BREAD) {
 			System.out.println("푸드 번호를 입력해 주세요");
 			select = Util.keyboard.nextInt();
 		}
@@ -237,6 +241,16 @@ public class MenuSelect {
 			break;
 
 		case Menu_Inter.SANDWITCHES:
+			orderFood.add(new Sandwiches());
+			customFood(orderFood);
+			break;
+
+		case Menu_Inter.SCONE:
+			orderFood.add(new Sandwiches());
+			customFood(orderFood);
+			break;
+
+		case Menu_Inter.HONEY_BREAD:
 			orderFood.add(new Sandwiches());
 			customFood(orderFood);
 			break;
@@ -308,11 +322,10 @@ public class MenuSelect {
 		order.add(orderFood.get(index));
 	}
 
-	
 	void checkOrder(int choice, int select) {
 		System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
 		System.out.print("주문상품: ");
-	
+
 		order.get(order.size() - 1).showProduct();
 
 		System.out.println("선택하신 상품이 맞으신가요?");
@@ -339,24 +352,24 @@ public class MenuSelect {
 
 	public void showMenuPlate() {
 		System.out.println("■■■■■■■■■■ 메 뉴 ■■■■■■■■■■ ");
-		
+
 		System.out.println("========== 음 료 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
+
 		for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("========== 푸 드 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
+
 		for (int i = Menu_Inter.CHEEZE - 1; i < menu.size(); i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■ ");
 	}
-	
+
 //	
 //	public static void main(String[] args) {
 //		MenuSelect m = new MenuSelect();
