@@ -22,7 +22,7 @@ public class MenuSelect {
 	ArrayList<Menu> order; // 주문-영수증 넣는 field.
 	int cnt = 10;
 	int basket = 3; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
-	int total = 0; // 총금액(주문한 상품 total)
+	int total = 0; // 총 구매금액(주문한 상품 total)
 
 	public MenuSelect() {
 		this.menu = new ArrayList<Menu>();
