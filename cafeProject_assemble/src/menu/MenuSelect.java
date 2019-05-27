@@ -1,5 +1,8 @@
 package menu;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 /*
  * ver.03 작성자: 김나연 날 짜: 05.27.2019. am.01:40 수정사항 1. 메뉴번호 예외처리(String넣지않게) 2.
@@ -80,8 +83,8 @@ public class MenuSelect {
 		System.out.print("구매할 상품의 번호(no)를 눌러주세요: ");
 	}
 
-	public void showMenu() { // 메뉴판보여주기
-		System.out.println("환영합니다. 고객님");
+	public void showMenu(String id) { // 메뉴판보여주기
+		System.out.println("환영합니다. "+id+"고객님");
 
 		while (true) {
 			System.out.println("========================================");
@@ -107,7 +110,7 @@ public class MenuSelect {
 
 				case 4:
 					// 마지막 결제전 삭제메뉴 있음!
-					showBill();
+					showBill(id);
 					break;
 
 				case 5:
@@ -137,11 +140,17 @@ public class MenuSelect {
 	}
 
 	// 결제로 넘어가게 하는 주문창
-	void showBill() {
+	void showBill(String id) {
 		if (order.size() != 0) {
 			System.out.println("....결제창으로 넘어갑니다....\n");
 			
-			billFormat();
+			try {
+				billFormat(id);
+				System.out.println("주문이 완료되었습니다.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else {
 			System.out.println("주문 내역이 없습니다.");
@@ -363,7 +372,7 @@ public class MenuSelect {
 		return result;
 	}
 
-	void billFormat() {
+	void billFormat(String id) throws IOException{
 		System.out.println("■■■■■■■■■■■■ B I T L O C O ■■■■■■■■■■■■■ ");
 		System.out.println("대표자: 최아리");
 		System.out.print("주문시각: ");
@@ -377,11 +386,30 @@ public class MenuSelect {
 		for (Menu e : order) {
 			total += e.getPrice();
 			e.showProduct();
+			System.out.println("----------------------------------------");
 		}
-		System.out.println("----------------------------------------");
 		
 		System.out.printf(" T O T A L :        ￦ %15d \n", total);
 		System.out.println("========================================");
+		
+		{
+			BufferedWriter out = new BufferedWriter(new FileWriter("bill.txt"));
+			out.write("주문시각: " + getOrderTime());
+			out.newLine();
+			out.write("----------------------------------------");
+			out.newLine();
+			
+			
+			out.write("주문자 아이디: " + id);
+			
+			out.newLine();
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write("  T O T A L :        ￦  " + total);
+			out.newLine();
+			out.write("----------------------------------------");
+			out.close();
+		}
 		
 	}
 

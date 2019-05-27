@@ -31,11 +31,15 @@ public class LocoManager {
 
 	private static LocoManager loco = new LocoManager();
 
-	static LocoManager getInstance() {
+	public static LocoManager getInstance() {
 		if (loco == null) {
 			loco = new LocoManager();
 		}
 		return loco;
+	}
+	
+	public Map<String, String> getBit(){
+		return this.bit;
 	}
 
 	public void joinMember() {
@@ -189,7 +193,7 @@ public class LocoManager {
 									break;
 									
 								case 2:
-									plate.showMenu();
+									plate.showMenu(id);
 									break;
 
 								case 3:
