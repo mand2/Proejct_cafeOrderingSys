@@ -20,9 +20,11 @@ public class MenuSelect {
 	ArrayList<Beverage> orderBev; // 주문-음료용
 	ArrayList<Food> orderFood; // 주문-푸드용
 	ArrayList<Menu> order; // 주문-영수증 넣는 field.
+	
 	int cnt = 10;
 	int basket = 3; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
 	int total = 0; // 총 구매금액(주문한 상품 total)
+	
 
 	public MenuSelect() {
 		this.menu = new ArrayList<Menu>();
@@ -138,14 +140,16 @@ public class MenuSelect {
 	void showBill() {
 		if (order.size() != 0) {
 			System.out.println("....결제창으로 넘어갑니다....\n");
+			
 			billFormat();
-
 
 		} else {
 			System.out.println("주문 내역이 없습니다.");
 		}
 	}
 
+	
+	
 	// TODO 결제전 삭제
 	/*
 	 * void deleteOrder() {
@@ -364,22 +368,24 @@ public class MenuSelect {
 		System.out.println("대표자: 최아리");
 		System.out.print("주문시각: ");
 		System.out.println(getOrderTime());
-		System.out.println("---------------------------------------");
+		System.out.println("----------------------------------------");
 
 		System.out.println("================= 메뉴 ================= ");
 		System.out.println("   상  품  명         |    가   격 ");
-		System.out.println("---------------------------------------");
+		System.out.println("----------------------------------------");
+		
 		for (Menu e : order) {
 			total += e.getPrice();
 			e.showProduct();
-			System.out.println("---------------------------------------");
 		}
-		System.out.print(" T O T A L : ");
-		System.out.printf("￦ %20d \n", total);
+		System.out.println("----------------------------------------");
+		
+		System.out.printf(" T O T A L :        ￦ %15d \n", total);
 		System.out.println("========================================");
-		System.out.println("결제가 완료되었습니다. 감사합니다.");
+		
 	}
 
+	
 
 //	
 //	public static void main(String[] args) {
