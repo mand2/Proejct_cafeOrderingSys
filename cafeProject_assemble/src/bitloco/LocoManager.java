@@ -109,18 +109,36 @@ public class LocoManager {
 	}
 
 	public void deleteInfo() {
-		System.out.println("insert ID ");
+		System.out.println("insert ID: ");
 		String id = Util.keyboard.nextLine();
+		System.out.print("intsert Password: ");
+		String pw = Util.keyboard.nextLine();
+
 		int index = searchIndex(id);
 		if (index < 0) {
 			System.out.println("wrong ID!");
-		} else {
-			for (int i = index; i < cnt; i++) {
-				mem[i] = mem[i + 1];
+
+		} else if (bit.containsKey(id)) {
+			if (bit.get(id).equals(pw)) {
+				System.out.println("회원 정보가 확인되었습니다. 아이디를 삭제하겠습니다.");
+				System.out.println("--------------------------------------");
+				if (bit.containsKey(id) && bit.containsValue(pw)) {
+					// for (int i = index; i < cnt - 1; i++) {
+					// mem[i] = mem[i + 1];
+					System.out.println("Your ID has been successfully deleted!");
+					System.out.println("--------------------------------------");
+				}
+				bit.remove(id, pw);
+				cnt--;
+				{
+					// for (int i = index; i < cnt - 1; i++) {
+					// mem[i] = mem[i + 1];
+					// System.out.println("Your ID has been successfully deleted!");
+					// }
+					// bit.remove(id);
+
+				}
 			}
-			bit.remove(id);
-			cnt--;
-			System.out.println("Your ID has been successfully deleted!");
 		}
 	}
 
