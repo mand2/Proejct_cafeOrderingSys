@@ -136,20 +136,18 @@ public class MenuSelect {
 	// 결제로 넘어가게 하는 주문창
 	void showBill() {
 		if (order.size() != 0) {
-			System.out.println("■■■■■■■■■■■■■■ 전체  주문 ■■■■■■■■■■■■■■ ");
-			for (Menu o : order) {
-				o.showProduct();
-			}
-//				deleteOrder();
 			System.out.println("....결제창으로 넘어갑니다....");
+			
+			Order order = new Order();
+			order.billFormat(this);
 			// TODO 결제메뉴로~
-			Order orderBill = new Order();
-			for(Menu m : order ) {
-				orderBill.orderMenu.add(m);
-			}
-			for(Menu m1 : orderBill.orderMenu ) {
-				m1.showProduct();
-			}
+//			for(Menu m : order ) {
+//				orderBill.orderMenu.add(m);
+//			}
+//			for(Menu m1 : orderBill.orderMenu ) {
+//				m1.showProduct();
+//			}
+			
 
 		} else {
 			System.out.println("주문 내역이 없습니다.");
