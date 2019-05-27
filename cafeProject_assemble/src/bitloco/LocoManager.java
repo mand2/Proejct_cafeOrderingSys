@@ -40,50 +40,69 @@ public class LocoManager {
 		}
 		return loco;
 	}
-
 	public void joinMember() {
 
 //		m = null;
 		Util.keyboard.nextLine();
-		System.out.println("PLEASE COMPLETE A FORM!");
-		System.out.print("ID:");
+		System.out.println("=======================");
+		System.out.println("회원 가입을 진행합니다.");
+		System.out.print("ID를 입력해주세요 :");
 		String id = Util.keyboard.nextLine();
 
 		int index = searchIndex(id);
 
 		cafe: if (index < 0) {
-			System.out.print("PASSWORD:");
+			System.out.print("비밀번호를 입력해주세요 :");
 			String pw = Util.keyboard.nextLine();
-			System.out.print("Name:");
+			System.out.print("성함을 입력해주세요 :");
 			String name = Util.keyboard.nextLine();
-			System.out.print("Phone Number:");
+			System.out.print("연락처를 입력해주세요 :");
 			String pNum = Util.keyboard.nextLine();
 
 			m = new MemberInfo(id, pw, name, pNum);
 			mem[cnt++] = m;
-			System.out.println("THANKS FOR JOINING US.");
+			System.out.println("가입되었습니다!");
+			System.out.println("=======================");
 			bit.put(id, pw);
 
 		} else {
 			System.out.println("사용중인 ID입니다.다시 입력바랍니다.");
-			return;
+			System.out.print("ID를 입력해주세요 :");
+			id = Util.keyboard.nextLine();
+
+			System.out.print("비밀번호를 입력해주세요 :");
+			String pw = Util.keyboard.nextLine();
+
+			System.out.print("성함을 입력해주세요 :");
+			String name = Util.keyboard.nextLine();
+
+			System.out.print("연락처를 입력해주세요 :");
+			String pNum = Util.keyboard.nextLine();
+
+			m = new MemberInfo(id, pw, name, pNum);
+			mem[cnt++] = m;
+			System.out.println("가입되었습니다!");
+			System.out.println("=======================");
+			bit.put(id, pw);
 
 		}
 	}
 
 	public void editInfo() {
-		System.out.println("insert ID ");
+		System.out.println("=======================");
+		System.out.println("회원 정보를 수정합니다. ");
+		System.out.println("수정할 ID를 입력해주세요 :");
 		String id = Util.keyboard.nextLine();
 		int index = searchIndex(id);
 		if (index < 0) {
-			System.out.println("wrong ID!");
+			System.out.println("잘못 입력하셨습니다.\n정확한 ID를 입력해주세요!");
 		} else {
-			System.out.println("edit" + mem[index].getId() + "'s Information");
-			System.out.println("password");
+			System.out.println(mem[index].getId() + "님의 정보를 수정합니다.");
+			System.out.println("수정할 비밀번호를 입력해주세요 :");
 			String pw = Util.keyboard.nextLine();
-			System.out.println("name");
+			System.out.println("수정할 성함을 입력해주세요 : ");
 			String name = Util.keyboard.nextLine();
-			System.out.println("phone number");
+			System.out.println("수정할 연락처를 입력해주세요 :");
 			String pNum = Util.keyboard.nextLine();
 
 			mem[index] = new MemberInfo(id, pw, name, pNum);
@@ -93,18 +112,20 @@ public class LocoManager {
 	}
 
 	public void deleteInfo() {
-		System.out.println("insert ID ");
+		System.out.println("=======================");
+		System.out.println("회원 정보를 삭제합니다. ");
+		System.out.println("삭제할 ID를 입력해주세요 :");
 		String id = Util.keyboard.nextLine();
 		int index = searchIndex(id);
 		if (index < 0) {
-			System.out.println("wrong ID!");
+			System.out.println("잘못 입력하셨습니다.\n정확한 ID를 입력해주세요!");
 		} else {
 			for (int i = index; i < cnt; i++) {
 				mem[i] = mem[i + 1];
 			}
 			bit.remove(id);
 			cnt--;
-			System.out.println("Your ID has been successfully deleted!");
+			System.out.println("회원 정보가 삭제되었습니다. ");
 		}
 	}
 
@@ -124,16 +145,15 @@ public class LocoManager {
 		if (cnt > 0) {
 			for (int i = 0; i < cnt; i++) {
 				mem[i].showData();
-				System.out.println("------------------------");
+				System.out.println("-----------------------");
 				break;
 			}
 		} else {
 			System.out.println("등록된 회원정보가 없습니다.");
-			System.out.println("------------------------");
+			System.out.println("-----------------------");
 		}
 
 	}
-
 	// Members 안에 선택창
 	public int first() {
 		System.out.println("=======================");
