@@ -1,12 +1,9 @@
 package bitloco;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 
 import menu.MenuSelect;
-import menu.Order;
 import util.Menu_Inter;
 import util.Util;
 
@@ -310,11 +307,6 @@ public class LocoManager {
 			// 메뉴선택창으로 이동
 
 		}
-	}
-
-	void cafeOrder() {
-		Order o;
-
 	}
 
 }

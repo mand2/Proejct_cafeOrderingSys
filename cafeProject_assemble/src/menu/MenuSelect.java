@@ -1,27 +1,28 @@
 package menu;
 
+import java.text.SimpleDateFormat;
 /*
- * ver.03 
- * 작성자: 김나연 
- * 날 짜: 05.27.2019. am.01:40 수정사항 
- * 1. 메뉴번호 예외처리(String넣지않게) 
- * 2. menuPlate() 메서드에서 1.음료선택후 음료번호(1~4)를 누르지 않을 때, 혹은 그 역일 때 예외처리 
- * 3. 1인당 결제가능한 수량제한하는 basket field만듬 
- * 4. checkOrder메서드 변경 : 주문가능수량(==현재 매장에 있는 상품)인 cnt field가 감소하는 기능을 추가함.
+ * ver.03 작성자: 김나연 날 짜: 05.27.2019. am.01:40 수정사항 1. 메뉴번호 예외처리(String넣지않게) 2.
+ * menuPlate() 메서드에서 1.음료선택후 음료번호(1~4)를 누르지 않을 때, 혹은 그 역일 때 예외처리 3. 1인당 결제가능한
+ * 수량제한하는 basket field만듬 4. checkOrder메서드 변경 : 주문가능수량(==현재 매장에 있는 상품)인 cnt
+ * field가 감소하는 기능을 추가함.
  */
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.InputMismatchException;
 
 import bitloco.Menu;
-import util.*;
+import util.Menu_Inter;
+import util.Util;
 
 public class MenuSelect {
 	ArrayList<Menu> menu; // 메뉴판보여주기
-	ArrayList<Beverage> orderBev; // 주문시
-	ArrayList<Food> orderFood; // 주문
-	ArrayList<Menu> order; // 아리님께 넘길 객체
+	ArrayList<Beverage> orderBev; // 주문-음료용
+	ArrayList<Food> orderFood; // 주문-푸드용
+	ArrayList<Menu> order; // 주문-영수증 넣는 field.
 	int cnt = 10;
 	int basket = 3; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
+	int total = 0; // 총금액(주문한 상품 total)
 
 	public MenuSelect() {
 		this.menu = new ArrayList<Menu>();
@@ -136,18 +137,9 @@ public class MenuSelect {
 	// 결제로 넘어가게 하는 주문창
 	void showBill() {
 		if (order.size() != 0) {
-			System.out.println("....결제창으로 넘어갑니다....");
-			
-			Order order = new Order();
-			order.billFormat(this);
-			// TODO 결제메뉴로~
-//			for(Menu m : order ) {
-//				orderBill.orderMenu.add(m);
-//			}
-//			for(Menu m1 : orderBill.orderMenu ) {
-//				m1.showProduct();
-//			}
-			
+			System.out.println("....결제창으로 넘어갑니다....\n");
+			billFormat();
+
 
 		} else {
 			System.out.println("주문 내역이 없습니다.");
@@ -159,16 +151,17 @@ public class MenuSelect {
 	 * void deleteOrder() {
 	 * System.out.println("----------------------------------------");
 	 * System.out.println("삭제할 메뉴가 있습니까? 1.예 2.아니오"); int delete =
-	 * Util.keyboard.nextInt(); if (delete == 1) { for (int i = 0; i < order.size();
-	 * i++) { System.out.print((i + 1) + "번: "); order.get(i).showProduct(); }
+	 * Util.keyboard.nextInt(); if (delete == 1) { for (int i = 0; i <
+	 * order.size(); i++) { System.out.print((i + 1) + "번: ");
+	 * order.get(i).showProduct(); }
 	 * System.out.println("----------------------------------------");
 	 * System.out.println("삭제할 번호를 한번에 적어주세요. \',\' 로 나눠서 예) 1, 2");
 	 * Util.keyboard.nextLine(); String str = Util.keyboard.nextLine();
 	 * StringTokenizer st = new StringTokenizer(str, ", "); int[] array = new
-	 * int[basket]; while (st.hasMoreTokens()) { for (int i : array) { } array[i] =
-	 * Integer.parseInt(st.nextToken()); }
-	 * System.out.println("■■■■■■■■■■■■■■ 주문  확인 ■■■■■■■■■■■■■■ "); for (Menu o :
-	 * order) { o.showProduct(); } } }
+	 * int[basket]; while (st.hasMoreTokens()) { for (int i : array) { }
+	 * array[i] = Integer.parseInt(st.nextToken()); }
+	 * System.out.println("■■■■■■■■■■■■■■ 주문  확인 ■■■■■■■■■■■■■■ "); for (Menu o
+	 * : order) { o.showProduct(); } } }
 	 */
 
 	void orderProcess(int choice) {
@@ -308,11 +301,11 @@ public class MenuSelect {
 		order.add(orderFood.get(index));
 	}
 
-	
+
 	void checkOrder(int choice, int select) {
 		System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
 		System.out.print("주문상품: ");
-	
+
 		order.get(order.size() - 1).showProduct();
 
 		System.out.println("선택하신 상품이 맞으신가요?");
@@ -339,24 +332,55 @@ public class MenuSelect {
 
 	public void showMenuPlate() {
 		System.out.println("■■■■■■■■■■ 메 뉴 ■■■■■■■■■■ ");
-		
+
 		System.out.println("========== 음 료 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
+
 		for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("========== 푸 드 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
+
 		for (int i = Menu_Inter.CHEEZE - 1; i < menu.size(); i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■ ");
 	}
-	
+
+	// 주문시간 프린트.
+	String getOrderTime() {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		String result = format.format(new Date());
+
+		return result;
+	}
+
+	void billFormat() {
+		System.out.println("■■■■■■■■■■■■ B I T L O C O ■■■■■■■■■■■■■ ");
+		System.out.println("대표자: 최아리");
+		System.out.print("주문시각: ");
+		System.out.println(getOrderTime());
+		System.out.println("---------------------------------------");
+
+		System.out.println("================= 메뉴 ================= ");
+		System.out.println("   상  품  명         |    가   격 ");
+		System.out.println("---------------------------------------");
+		for (Menu e : order) {
+			total += e.getPrice();
+			e.showProduct();
+			System.out.println("---------------------------------------");
+		}
+		System.out.print(" T O T A L : ");
+		System.out.printf("￦ %20d \n", total);
+		System.out.println("========================================");
+		System.out.println("결제가 완료되었습니다. 감사합니다.");
+	}
+
+
 //	
 //	public static void main(String[] args) {
 //		MenuSelect m = new MenuSelect();
