@@ -1,8 +1,6 @@
 package bitloco;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import util.Menu_Inter;
 
 public abstract class Menu implements Menu_Inter{

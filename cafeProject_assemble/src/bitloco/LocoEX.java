@@ -3,10 +3,9 @@ package bitloco;
 
 
 import java.util.ArrayList;
-
 import menu.MenuSelect;
-import util.Menu_Inter;
-import util.Util;
+import util.*;
+
 
 
 public class LocoEX {
