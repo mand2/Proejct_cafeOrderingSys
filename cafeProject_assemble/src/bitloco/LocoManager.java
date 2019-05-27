@@ -260,77 +260,143 @@ public class LocoManager {
 		System.out.println("=======================================");
 
 	}
-
+	
 	public void eventMenu() {
-		System.out.println("이벤트 창입니다");
-		// 로그인메서드
-		System.out.println("하고싶으신 이벤트를 선택해주세요.");
-		while (true) {
-			int select = 0;
-			System.out.println("1. 랜덤커피 \t 2. 오늘의 기분 \t3. 나가기");
-			select = Util.keyboard.nextInt();
-			switch (select) {
-			case 1:
-				randomCoffee();
-				askBuy();
-				break;
-			case 2:
-				System.out.println("오늘의 기분은?");
-				break;
-			case 3:
-				return;
+			showEvent();
+		}
+			
+
+			void randomCoffee() {
+				System.out.println("오늘의 음료를 추천하고 있는 중입니다.");
+
+				System.out.print("오늘의 추천음료 - ");
+				// 무작위로 음료 추천
+				int select = (int) (Math.random() * 4 + 1);
+
+				switch (select) {
+				case Menu_Inter.AMERICANO:
+					System.out.println("아메리카노");
+
+					break;
+
+				case Menu_Inter.CAPPUCHINO:
+					System.out.println("카푸치노");
+					break;
+
+				case Menu_Inter.SPARKLING:
+					System.out.println("탄산수");
+					break;
+
+				case Menu_Inter.LEMONADE:
+					System.out.println("레몬에이드");
+					break;
+				}
+				System.out.println("결제하시겠습니까? ");
+				System.out.println("1. Yes\t 2. No");
+				int num = Util.keyboard.nextInt();
+				if (num == 1) {
+					System.out.println("결제창으로 이동합니다.");
+	//TODO 결제창과 연동해야 함.
+				} else {
+					// 메뉴 선택창으로 이동합니다.
+					System.out.println("초기화면으로 돌아갑니다.");
+					
+					
+					//				menu.MenuSelect.showMenu();
+					return;
+				}
+
 			}
-			break;
 
-		}
+			void randomFood() {
+				System.out.println("오늘의 FOOD를 추천하고 있는 중입니다.");
 
-	}
+				System.out.print("오늘의 추천FOOD - ");
+				// 무작위로 음료 추천
+				int select = (int) (Math.random() * 4 + 5);
 
-	static void randomCoffee() {
-		// System.out.println((int) (Math.random() * 4+1));
-		int num = (int) (Math.random() * 4 + 1);
-		switch (num) {
-		case Menu_Inter.AMERICANO:
-			System.out.println("오늘의 추천 음료는  아메리카노 입니다.");
-			break;
-		case Menu_Inter.CAPPUCHINO:
-			System.out.println("오늘의 추천 음료는 카푸치노 입니다.");
-			break;
-		case Menu_Inter.SPARKLING:
-			System.out.println("오늘의 추천 음료는 스파클링입니다.");
-			break;
-		case Menu_Inter.LEMONADE:
-			System.out.println("오늘의 추천음료는 스파클링입니다.");
-			break;
-		}
+				switch (select) {
+				case Menu_Inter.CHEEZE:
+					System.out.println("치즈케익");
+					break;
 
-	}
+				case Menu_Inter.CHOCO:
+					System.out.println("초코케익");
+					break;
 
-	static void howareyou() {
+				case Menu_Inter.COOCKIES:
+					System.out.println("쿠키");
+					break;
 
-		System.out.println("오늘의 기분을 숫자로 입력해주세요");
-		System.out.println("10. 좋아요");
-		System.out.println("5. 그냥 그래요");
-		System.out.println("1. 별로에요");
-		Util.keyboard.nextInt();
+				case Menu_Inter.SANDWITCHES:
+					System.out.println("샌드위치");
+					break;
+				}
 
-		askBuy();
+				System.out.println("결제하시겠습니까? ");
+				System.out.println("1. Yes\t 2. No");
+				int num = Util.keyboard.nextInt();
+				if (num == 1) {
+					System.out.println("결제창으로 이동합니다.");
+					//MenuSelect menuselect = new MenuSelect();
+//					TODO 결제창과 연동시켜야 함.
+				} else {
+					// 메뉴 선택창으로 이동합니다.
+					System.out.println("초기화면으로 돌아갑니다.");
+					MenuSelect menuselect = new MenuSelect();
+					menuselect.showMenu();
+				}
+			}
 
-	}
+			void howareyou() {
+				int good = 10;
+				int soso = 5;
+				int bad = 1;
+				// 그냥 친구 기분에 따라 어떤거 마실건지 물어서 임의로 정했습니다.!
+				// 하고 싶은건 로그인하고 오늘의 기분 이벤트로 들어온 후 메뉴를 고를 수 있고 시킨 음료를 그 기분에 맞게 저장해서 넣고 싶어요 그래서
+				// 다음 번엔 기분에 따라 시킨 음료가 카운트 된 만큼 많은 카운트 수를 받은 음료를 추천할 수 있게?
+				System.out.printf("오늘의 기분을 숫자로 입력해주세요\n좋아요.(%d)\t보통이에요(%d)\t별로에요(%d)\n", good, soso, bad);
+				int feel = Util.keyboard.nextInt();
 
-	static void askBuy() {
-		System.out.println("결제하시겠습니까? ");
-		System.out.println("1. Yes\t 2. No");
-		int num = Util.keyboard.nextInt();
-		if (num == 1) {
-			System.out.println("결제창으로 이동합니다.");
-			// 결제창으로 이동
+				if (feel == good) {
+					System.out.println("카푸치노 어떠세요?");
+				
+				} else if (feel == soso) {
+					System.out.println("레몬에이드 한 잔 어떠세요?");
 
-		} else {
-			// 메뉴선택창으로 이동
+				} else {
+					System.out.println("아메리카노 어떠세요?");
 
-		}
-	}
+				}
+
+			}
+
+			void showEvent() {
+				System.out.println("이벤트 창입니다.");
+
+				while (true) {
+					System.out.printf("어떤 이벤트를 원하십니까? \n%d.랜덤커피\t %d.랜덤FOOD\t %d.오늘의 기분\t %d. 나가기\n", 1, 2, 3, 4);
+					menu.MenuSelect menuselect = new MenuSelect();
+					int choice = Util.keyboard.nextInt();
+					switch (choice) {
+					case 1:
+						randomCoffee();
+						break;
+
+					case 2:
+						randomFood();
+						break;
+					case 3:
+						howareyou();
+						break;
+
+					case 4:
+						return;
+					}
+				}
+			}
+		
+
 
 	void cafeOrder() {
 		Order o;
