@@ -1,16 +1,17 @@
 package bitloco;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import util.Menu_Inter;
 
 public abstract class Menu implements Menu_Inter{
-	// 실제 상품 클래스에서 count 추가해주는 메서드 있어야 함.
+	
+	
+	/* 실제 상품 클래스에서 count 추가해주는 메서드 있어야 함.
 		// 실제 상품클래스에서 price 아예 정해주세요~!
 		//price, cnt, size, cold 는 가변적이라 상수가 안되므로 인터페이스에 없습니다.
 
-		/*
+		*
 		 * 변수선언
 		 * 
 		 * @price: 가격

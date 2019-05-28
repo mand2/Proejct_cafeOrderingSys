@@ -1,21 +1,18 @@
 package bitloco;
 
+import java.io.IOException;
 
-
-import java.util.ArrayList;
-
-import menu.MenuSelect;
 import util.Menu_Inter;
 import util.Util;
-
 
 public class LocoEX {
 
 
-	public static void main(String[] args) {
-    
-	 LocoManager bitloco = LocoManager.getInstance();
-	 MenuSelect m = new MenuSelect();	
+	public static void main(String[] args) throws IOException {	 
+	 MemberLogin bitloco = MemberLogin.getInstance();
+	 MenuSelect m = new MenuSelect();
+
+
 //		member m = new member (null, null); 
 //		Set <LoginMember> login = new HashSet ();
     
@@ -38,7 +35,7 @@ public class LocoEX {
 			break;
 			
 		case Menu_Inter.JOIN:
-			bitloco.joinMember();
+			bitloco.joinMember(); 
 			break;
 			
 		case Menu_Inter.MENU:
@@ -46,43 +43,19 @@ public class LocoEX {
 			break;
 			
 		case Menu_Inter.QUIT:
-			System.out.println("프로그램을 종료합니다.\n이용해주셔서 감사합니다.\n       _BITLOCO");
+			System.out.println();
+			System.out.println("  "+bitloco.getTime()+"종료!");
+			System.out.println("Thank you for using. \nPlease come again next time.\n             \t _ BITLOCO");
 			return;
 			
 		default:
 			System.out.println("Please, re-select!");
 			break;
 		
-		}
-		
-		
-		//	기존아리님이 쓴 코드	
-//		if(select<1||select>4) {
-//			System.out.println("Please, re-select!");
-//			continue;
-//		}else if(select==Menu_Inter.MEMERS) {
-//			switch(select) {
-//			case 1:
-//			bitloco.login();
-//			
-////			System.out.println("회원전용 메뉴창입니다.");
-////			System.out.println("회원메뉴에는 1.MyInfo 2.ORDER 3.ACOOUNT 4.EVENT 5.HOME(초기화면)");
-//			}
-//		}else if(select==Menu_Inter.JOIN) {
-//			
-//			bitloco.joinMember();
-//
-//		}else if (select==Menu_Inter.MENU) {
-//			//bitloco.foodMenu();
-//			m.main(args);
-//			bitloco.login();
-//		}else if(select==Menu_Inter.QUIT) {
-//			System.out.println("프로그램을 종료합니다.\n이용해주셔서 감사합니다.\n       _BITLOCO");
-//			return;
-//		}
-//		
-//		
-//		
-		}
-	}
+		 }
+	  }
+   }
+
+
+	
 }
