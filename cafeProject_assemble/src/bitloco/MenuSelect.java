@@ -4,20 +4,18 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
 /*
- * ver.03 
- * 작성자: 김나연 
- * 날 짜: 05.27.2019. am.01:40 수정사항 
- * 1. 메뉴번호 예외처리(String넣지않게) 
- * 2. menuPlate() 메서드에서 1.음료선택후 음료번호(1~4)를 누르지 않을 때, 혹은 그 역일 때 예외처리 
- * 3. 1인당 결제가능한 수량제한하는 basket field만듬 
- * 4. checkOrder메서드 변경 : 주문가능수량(==현재 매장에 있는 상품)인 cnt field가 감소하는 기능을 추가함.
+ * ver.03 작성자: 김나연 날 짜: 05.27.2019. am.01:40 수정사항 1. 메뉴번호 예외처리(String넣지않게) 2.
+ * menuPlate() 메서드에서 1.음료선택후 음료번호(1~4)를 누르지 않을 때, 혹은 그 역일 때 예외처리 3. 1인당 결제가능한
+ * 수량제한하는 basket field만듬 4. checkOrder메서드 변경 : 주문가능수량(==현재 매장에 있는 상품)인 cnt
+ * field가 감소하는 기능을 추가함.
  */
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.InputMismatchException;
 
-import java.util.*;
-import bitloco.Menu;
-import util.*;
+import util.Menu_Inter;
+import util.Util;
 
 public class MenuSelect {
 	ArrayList<Menu> menu; // 메뉴판보여주기
@@ -26,7 +24,7 @@ public class MenuSelect {
 	ArrayList<Menu> order; // 아리님께 넘길 객체
 
 	int cnt = 10;
-	int basket = 10; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
+	int basket = 5; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
 	int total = 0;
 
 	public MenuSelect() {
@@ -274,8 +272,7 @@ public class MenuSelect {
 
 		// 딸기와 바나나를 선택
 		if (b.get(b.size() - 1) instanceof FruitJuice) {
-			System.out.printf("%d.바나나 %d.딸바 %d.초바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY,
-					Menu_Inter.BEV_CHOCO);
+			System.out.printf("%d.바나나 %d.딸바 %d.초바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY, Menu_Inter.BEV_CHOCO);
 
 			int fruit = Util.keyboard.nextInt();
 
@@ -307,13 +304,9 @@ public class MenuSelect {
 
 		/*
 		 * 과일 항목 바꾸기전에 if문 - 오류 if (fruit == 1) { orderBev.get(index).banana();
-		 * 
-		 * } else if (fruit == 2) { orderBev.get(index).strawberry();
-		 * 
-		 * } else if (fruit == 3) { orderBev.get(index).banaberry();
-		 * 
-		 * } while (fruit > 3) { System.out.println("다시 입력해주세요."); fruit =
-		 * Util.keyboard.nextInt(); }
+		 * } else if (fruit == 2) { orderBev.get(index).strawberry(); } else if
+		 * (fruit == 3) { orderBev.get(index).banaberry(); } while (fruit > 3) {
+		 * System.out.println("다시 입력해주세요."); fruit = Util.keyboard.nextInt(); }
 		 */
 
 		// 설탕 함유량 선택
@@ -335,7 +328,8 @@ public class MenuSelect {
 		order.add(orderBev.get(index));
 
 		// 개인 컵을 사용하면 -500원 할인
-		System.out.println("개인 컵을 사용하시면 500원 할인됩니다. 개인컵을 사용하시겠습니까? 1.예 2.아니오");
+		System.out.println("개인 컵을 사용하시면 500원 할인됩니다.");
+		System.out.println("개인컵을 사용하시겠습니까? 1.예 2.아니오");
 
 		int selfCup = Util.keyboard.nextInt();
 
@@ -359,9 +353,8 @@ public class MenuSelect {
 
 		System.out.println("선택하신 푸드: " + orderFood.get(index).getName());
 
-		if ((f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches)
-				|| f.get(f.size() - 1) instanceof Scone || f.get(f.size() - 1) instanceof Honeybread
-				|| f.get(f.size() - 1) instanceof Cheeze || f.get(f.size() - 1) instanceof Choco) {
+		if ((f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches) || f.get(f.size() - 1) instanceof Scone
+				|| f.get(f.size() - 1) instanceof Honeybread || f.get(f.size() - 1) instanceof Cheeze || f.get(f.size() - 1) instanceof Choco) {
 
 			System.out.printf("%d.기본 %d.따뜻하게\n", Menu_Inter.FOOD_COLD, Menu_Inter.FOOD_HOT);
 
@@ -484,9 +477,12 @@ public class MenuSelect {
 		System.out.println("   상  품  명         |    가   격 ");
 		System.out.println("----------------------------------------");
 
-		for (Menu e : order) {
-			total += e.getPrice();
-			e.showProduct();
+		String[] str = new String[basket];
+		for (int i = 0; i < order.size(); i++) {
+			str[i] = "";
+			total += order.get(i).getPrice();
+			order.get(i).showProduct();
+			str[i] = order.get(i).toString();
 			System.out.println("----------------------------------------");
 		}
 
@@ -503,6 +499,31 @@ public class MenuSelect {
 			out.write("주문자 아이디: " + id);
 
 			out.newLine();
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str[0]);
+			out.newLine();
+			
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str[1]);
+			out.newLine();
+
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str[2]);
+			out.newLine();
+
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str[3]);
+			out.newLine();
+
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str[4]);
+			out.newLine();
+
 			out.write("----------------------------------------");
 			out.newLine();
 			out.write("  T O T A L :        ￦  " + total);

@@ -1,8 +1,6 @@
 package bitloco;
 //TODO 레모네이드클래스만 sizeUP변경됨/ 그리고 cafe클래스에 사이즈업자체를 돈 넣어버림.확인용으로 시도해볼것.
 
-import bitloco.Menu;
-
 //음료 클래스. coffee & Non-C 클래스의 부모.
 abstract class Beverage extends Menu {
 
@@ -99,6 +97,15 @@ abstract class Beverage extends Menu {
 				+ getPrice() + " 원" + getCup() + " ");
 	}
 
+
+	@Override
+	public String toString() {
+		String str = getCold() + " " + getName() + " " + getSize() + " | " + getPrice() + " 원";
+		return str;
+	}
+	
+	
+	
 }
 
 //아메리카노 클래스 AMERICANO = 1

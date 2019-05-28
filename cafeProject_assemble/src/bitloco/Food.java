@@ -1,11 +1,5 @@
 package bitloco;
 
-import java.util.ArrayList;
-
-import bitloco.Menu;
-import util.Menu_Inter;
-import util.Util;
-
 abstract class Food extends Menu {
 
 	/*
@@ -85,6 +79,14 @@ abstract class Food extends Menu {
 	public void showProduct() {
 		System.out.println(getHot() + " " + getName() + " | " + getPrice() + " 원");
 	}
+	
+
+	@Override
+	public String toString() {
+		String str = getHot() + " " + getName() + " | " + getPrice() + " 원";
+		return str;
+	}
+
 }
 
 
