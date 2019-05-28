@@ -10,6 +10,7 @@ abstract class Food extends Menu {
 	 * @hot: 기본이 따뜻X, 1로 초기화 (따뜻하면 2로) // 베이커리류만 오버라이딩하면 됨.
 	 */
 	private String hot;
+	int a;
 
 	// 생성자
 	public Food() {
