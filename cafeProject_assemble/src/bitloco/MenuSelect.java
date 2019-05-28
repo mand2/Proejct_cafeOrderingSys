@@ -1,4 +1,9 @@
-package menu;
+package bitloco;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /*
  * ver.03 
@@ -20,8 +25,10 @@ public class MenuSelect extends Honeybread {
 	ArrayList<Beverage> orderBev; // 주문시
 	ArrayList<Food> orderFood; // 주문
 	ArrayList<Menu> order; // 아리님께 넘길 객체
+
 	int cnt = 10;
 	int basket = 10; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
+	int total = 0;
 
 	public MenuSelect() {
 		this.menu = new ArrayList<Menu>();
@@ -44,7 +51,6 @@ public class MenuSelect extends Honeybread {
 		ArrayList<Food> food = new ArrayList<Food>();
 		this.orderBev = new ArrayList<Beverage>();
 		this.orderFood = new ArrayList<Food>();
-
 
 		this.order = new ArrayList<Menu>(5);// 고객당 한번에 처리할 수 있는 주문.
 	}
@@ -80,8 +86,8 @@ public class MenuSelect extends Honeybread {
 		System.out.print("구매할 상품의 번호(no)를 눌러주세요: ");
 	}
 
-	public void showMenu() { // 메뉴판보여주기
-		System.out.println("환영합니다. 고객님");
+	public void showMenu(String id) { // 메뉴판보여주기
+		System.out.println("환영합니다. "+id+"고객님");
 
 		while (true) {
 			System.out.println("========================================");
@@ -107,7 +113,7 @@ public class MenuSelect extends Honeybread {
 
 				case 4:
 					// 마지막 결제전 삭제메뉴 있음!
-					showBill();
+					showBill(id);
 					break;
 
 				case 5:
@@ -137,21 +143,16 @@ public class MenuSelect extends Honeybread {
 	}
 
 	// 결제로 넘어가게 하는 주문창
-	void showBill() {
+	void showBill(String id) {
 		if (order.size() != 0) {
-			System.out.println("■■■■■■■■■■■■■■ 전체  주문 ■■■■■■■■■■■■■■ ");
-			for (Menu o : order) {
-				o.showProduct();
-			}
-//				deleteOrder();
-			System.out.println("....결제창으로 넘어갑니다....");
-			// TODO 결제메뉴로~
-			Order orderBill = new Order();
-			for (Menu m : order) {
-				orderBill.orderMenu.add(m);
-			}
-			for (Menu m1 : orderBill.orderMenu) {
-				m1.showProduct();
+			System.out.println("....결제창으로 넘어갑니다....\n");
+
+			try {
+				billFormat(id);
+				System.out.println("주문이 완료되었습니다.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		} else {
@@ -287,7 +288,6 @@ public class MenuSelect extends Honeybread {
 
 		System.out.println("선택하신 푸드: " + orderFood.get(index).getName());
 
-		
 		if ((f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches)
 				|| f.get(f.size() - 1) instanceof Scone || f.get(f.size() - 1) instanceof Honeybread
 				|| f.get(f.size() - 1) instanceof Cheeze || f.get(f.size() - 1) instanceof Choco) {
@@ -329,7 +329,7 @@ public class MenuSelect extends Honeybread {
 				System.out.println("다시 입력해주세요.");
 				addSinamon = Util.keyboard.nextInt();
 			}
-			
+
 			System.out.println("꿀 추가. (800 원)\n1.예 2.아니오");
 			int addHoney = Util.keyboard.nextInt();
 
@@ -392,4 +392,54 @@ public class MenuSelect extends Honeybread {
 
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■ ");
 	}
+
+	// 주문시간 프린트.
+	String getOrderTime() {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		String result = format.format(new Date());
+
+		return result;
+	}
+
+	void billFormat(String id) throws IOException {
+		System.out.println("■■■■■■■■■■■■ B I T L O C O ■■■■■■■■■■■■■ ");
+		System.out.println("대표자: 최아리");
+		System.out.print("주문시각: ");
+		System.out.println(getOrderTime());
+		System.out.println("----------------------------------------");
+
+		System.out.println("================= 메뉴 ================= ");
+		System.out.println("   상  품  명         |    가   격 ");
+		System.out.println("----------------------------------------");
+
+		for (Menu e : order) {
+			total += e.getPrice();
+			e.showProduct();
+			System.out.println("----------------------------------------");
+		}
+
+		System.out.printf(" T O T A L :        ￦ %15d \n", total);
+		System.out.println("========================================");
+
+		{
+			BufferedWriter out = new BufferedWriter(new FileWriter("bill.txt"));
+			out.write("주문시각: " + getOrderTime());
+			out.newLine();
+			out.write("----------------------------------------");
+			out.newLine();
+
+			out.write("주문자 아이디: " + id);
+
+			out.newLine();
+			out.write("----------------------------------------");
+			out.newLine();
+			out.write("  T O T A L :        ￦  " + total);
+			out.newLine();
+			out.write("----------------------------------------");
+			out.close();
+		}
+
+	}
+
 }

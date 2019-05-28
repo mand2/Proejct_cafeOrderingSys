@@ -1,7 +1,5 @@
 package bitloco;
 
-import java.util.ArrayList;
-
 public class MemberInfo {
 
 	private String id;
@@ -9,34 +7,45 @@ public class MemberInfo {
 	private String name;
 	private String pNum;
 	String nicName;
-	
-	private ArrayList<Menu> bill;
-	
-	public MemberInfo(String id,String pw,String name,String pNum) {
+
+	public MemberInfo(String id, String pw, String name, String pNum) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.pNum = pNum;
-		this.bill = new ArrayList<Menu>(); 
 	}
-	
-	public String getId() {return id;}
-	public void setId(String id) {this.id = id;}
-	public String getPw() {return pw;}
-	public void setPw(String pw) {this.pw = pw;}
-	public String getName() {return name;}
-	public void setName(String name) {this.name = name;}
-	public String getpNum() {return pNum;}
-	public void setpNum(String pNum) {this.pNum = pNum;}
-	
-	public void setBill(ArrayList<Menu> m){
-		this.bill = m;
+
+	public String getId() {
+		return id;
 	}
-	
-	public ArrayList<Menu> getBill(){
-		return this.bill;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	
+
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getpNum() {
+		return pNum;
+	}
+
+	public void setpNum(String pNum) {
+		this.pNum = pNum;
+	}
 
 	public void showData() {
 		System.out.println("=== M E M B E R S H I P ===");
@@ -45,7 +54,7 @@ public class MemberInfo {
 		System.out.println("UserName : " + name);
 		System.out.println("PhoneNum : " + pNum);
 	}
-	
+
 }
 
 

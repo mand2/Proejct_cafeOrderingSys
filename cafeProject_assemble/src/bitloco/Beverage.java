@@ -1,4 +1,4 @@
-package menu;
+package bitloco;
 //TODO 레모네이드클래스만 sizeUP변경됨/ 그리고 cafe클래스에 사이즈업자체를 돈 넣어버림.확인용으로 시도해볼것.
 
 import bitloco.Menu;
