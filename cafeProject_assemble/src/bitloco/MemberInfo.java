@@ -1,5 +1,7 @@
 package bitloco;
 
+import util.Util;
+
 public class MemberInfo {
 
 	private String id;
@@ -54,8 +56,10 @@ public class MemberInfo {
 		System.out.println("UserName : " + name);
 		System.out.println("PhoneNum : " + pNum);
 	}
+	
+
+	
+	
 
 }
-
-
 
