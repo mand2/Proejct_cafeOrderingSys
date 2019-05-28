@@ -9,11 +9,12 @@ package menu;
  * 3. 1인당 결제가능한 수량제한하는 basket field만듬 
  * 4. checkOrder메서드 변경 : 주문가능수량(==현재 매장에 있는 상품)인 cnt field가 감소하는 기능을 추가함.
  */
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 import bitloco.Menu;
-import util.*;
+import util.Menu_Inter;
+import util.Util;
 
 public class MenuSelect {
 	ArrayList<Menu> menu; // 메뉴판보여주기
@@ -155,23 +156,6 @@ public class MenuSelect {
 			System.out.println("주문 내역이 없습니다.");
 		}
 	}
-
-	// TODO 결제전 삭제
-	/*
-	 * void deleteOrder() {
-	 * System.out.println("----------------------------------------");
-	 * System.out.println("삭제할 메뉴가 있습니까? 1.예 2.아니오"); int delete =
-	 * Util.keyboard.nextInt(); if (delete == 1) { for (int i = 0; i < order.size();
-	 * i++) { System.out.print((i + 1) + "번: "); order.get(i).showProduct(); }
-	 * System.out.println("----------------------------------------");
-	 * System.out.println("삭제할 번호를 한번에 적어주세요. \',\' 로 나눠서 예) 1, 2");
-	 * Util.keyboard.nextLine(); String str = Util.keyboard.nextLine();
-	 * StringTokenizer st = new StringTokenizer(str, ", "); int[] array = new
-	 * int[basket]; while (st.hasMoreTokens()) { for (int i : array) { } array[i] =
-	 * Integer.parseInt(st.nextToken()); }
-	 * System.out.println("■■■■■■■■■■■■■■ 주문  확인 ■■■■■■■■■■■■■■ "); for (Menu o :
-	 * order) { o.showProduct(); } } }
-	 */
 
 	void orderProcess(int choice) {
 
