@@ -1,31 +1,44 @@
 package menu;
-
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import util.*;
 import menu.Order;
 import bitloco.Menu;
-import util.Menu_Inter;
-import util.Util;
+
 
 public class Event extends MenuSelect {
-
+	MenuSelect m = new MenuSelect();
+	Order ord = new Order();
+	
 	public void randomCoffee() {
 		System.out.println("오늘의 음료를 추천하고 있는 중입니다.");
 		
 		int choice = (int) (Math.random() * 4 + 1);
+		
 		custum(choice);
 		showCurOrder();
 		checkOrder(choice);
-		
+		ord.getTotal(m);
+		ord.billPirnt();
+		ord.billFormat(m);
+		ord.getOrderTime();
+
 	}
+
 	public void randomFood() {
 		System.out.println("오늘의 FOOD를 추천하고 있는 중입니다.");
 
-		int choice = (int) (Math.random() * 4 + 5);
+		int choice = (int) (Math.random() * 6 + 5);
+		
 		custum(choice);
 		showCurOrder();
 		checkOrder(choice);
-		
+		ord.getTotal(m);
+		ord.billPirnt();
+		ord.billFormat(m);
+		ord.getOrderTime();
 	}
+	
 	public void checkOrder(int select) {
 		// TODO Auto-generated method stub
 		System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
