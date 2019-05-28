@@ -8,17 +8,28 @@ abstract class Beverage extends Menu {
 
 	/*
 	 * 변수선언
+	 * 
 	 * @size: 1 (small이 기본, 2가 되면 LARGE)
+	 * 
 	 * @cold: 1 (cold가 기본, 2가 되면 hot)
 	 */
 	private String size;
 	private String cold;
+
+	// 변수 선언 (과일쥬스 fruit과 설탕당도 sugar)
+	// @fruit : 1.바나나 2.딸기 3.딸바를 위한 변수
+	// @sugar : 1( sugar free, 2가되면 sugar = 기본(original)
+
+	private String fruit;
+	private String sugar;
 
 	/* 생성자 */
 	public Beverage() {
 		super();
 		this.size = "small";
 		this.cold = "iced";
+		this.sugar = "";
+		this.fruit = "";
 	}
 
 	// 사이즈업하는 메서드
@@ -32,6 +43,26 @@ abstract class Beverage extends Menu {
 		cold = "hot";
 	}
 
+	// sugar free 메소드
+	public void sugarFree() {
+		sugar = "(sugar free)";
+	}
+
+	// 바나나를 위한 메소드
+	public void banana() {
+		fruit = "바나나 ";
+	}
+
+	// 딸기를 위한 메소드
+	public void strawberry() {
+		fruit = "딸기 ";
+	}
+
+	// 딸바를 위한 메소드
+	public void banaberry() {
+		fruit = "딸바 ";
+	}
+
 	public String getSize() {
 		return this.size;
 	}
@@ -40,17 +71,25 @@ abstract class Beverage extends Menu {
 		return this.cold;
 	}
 
+	public String getSugar() {
+		return this.sugar;
+	}
+
+	public String getfruit() {
+		return this.fruit;
+	}
+
 	public abstract void showPrint();
 
 	@Override
 	public void showProduct() {
-		System.out.println(getCold() + " " + getName() + " " + getSize() + " | " + getPrice() + " 원");
+		System.out.println(getSugar() + " " + getCold() + " " + getfruit() + " " + getName() + " " + getSize() + " | "
+				+ getPrice() + " 원");
 	}
 
 }
 
-
-//아메리카노 클래스 - 예시
+//아메리카노 클래스 AMERICANO = 1
 class Americano extends Beverage {
 
 	// 생성자
@@ -65,7 +104,6 @@ class Americano extends Beverage {
 		System.out.println(getName() + " | " + getPrice() + " 원");
 	}
 }
-
 
 //카푸치노 클래스 CAPPUCHINO =2, SPARKLING =3, LEMONADE=4;
 class Cappuchino extends Beverage {
@@ -114,5 +152,21 @@ class Lemonade extends Beverage {
 	@Override
 	public void showPrint() {
 		System.out.println(getName() + " | " + getPrice() + " 원");
+	}
+}
+
+//과일쥬스 클래스
+class FruitJuice extends Beverage {
+
+	// 생성자
+	public FruitJuice() {
+		super();
+		setPrice(4000);
+		setName("생과일 쥬스");
+	}
+
+	@Override
+	public void showPrint() {
+		System.out.println(getName() + "| " + getPrice() + " 원 (바나나,딸기,딸바)");
 	}
 }

@@ -30,6 +30,7 @@ public class MenuSelect {
 		menu.add(new Cappuchino());
 		menu.add(new Sparkling());
 		menu.add(new Lemonade());
+		menu.add(new FruitJuice());
 
 		menu.add(new Cheeze());
 		menu.add(new Choco());
@@ -55,7 +56,8 @@ public class MenuSelect {
 			System.out.println("================= 음료 =================");
 			System.out.println("no |   상품명   |   가격   | 주문가능수량 ");
 
-			for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
+			// 범위를 lemonade 에서 fruitjuice로 바꿈
+			for (int i = 0; i < Menu_Inter.FRUITJUICE; i++) {
 				System.out.print((i + 1) + "번| ");
 				menu.get(i).showPrint();
 				System.out.println("                                   " + menu.get(i).getCnt() + "개");
@@ -144,10 +146,10 @@ public class MenuSelect {
 			System.out.println("....결제창으로 넘어갑니다....");
 			// TODO 결제메뉴로~
 			Order orderBill = new Order();
-			for(Menu m : order ) {
+			for (Menu m : order) {
 				orderBill.orderMenu.add(m);
 			}
-			for(Menu m1 : orderBill.orderMenu ) {
+			for (Menu m1 : orderBill.orderMenu) {
 				m1.showProduct();
 			}
 
@@ -182,10 +184,11 @@ public class MenuSelect {
 
 		menuPlate(choice);
 
-		// @select : menuPlate내에서 1~4 or 5~8 선택할 때의 변수값.
+		// @select : menuPlate내에서 1~5 or 6~9 선택할 때의 변수값.
 		int select = Util.keyboard.nextInt();
 
-		while (choice == Menu_Inter.BEVERAGE && select > Menu_Inter.LEMONADE || select < Menu_Inter.AMERICANO) {
+		// 범위를 lemonade 에서 fruitjuce로 확장했습니다.
+		while (choice == Menu_Inter.BEVERAGE && select > Menu_Inter.FRUITJUICE || select < Menu_Inter.AMERICANO) {
 			System.out.println("음료 번호를 입력해 주세요");
 			select = Util.keyboard.nextInt();
 		}
@@ -220,6 +223,12 @@ public class MenuSelect {
 
 		case Menu_Inter.LEMONADE:
 			orderBev.add(new Lemonade());
+			customBev(orderBev);
+			break;
+
+		// fruitjuice추가
+		case Menu_Inter.FRUITJUICE:
+			orderBev.add(new FruitJuice());
 			customBev(orderBev);
 			break;
 
@@ -269,18 +278,71 @@ public class MenuSelect {
 			}
 		} // hot<>iced change
 
-		System.out.println("사이즈업하시겠습니까? 1.예 2.아니오");
-		int sizeUp = Util.keyboard.nextInt();
+		
+		// 딸기와 바나나를 선택
+		if (b.get(b.size() - 1) instanceof FruitJuice) {
+			System.out.printf("%d.바나나 %d.딸기 %d.딸바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY,
+					Menu_Inter.BEV_BANABERRY);
 
-		if (sizeUp == 1) {
-			orderBev.get(index).sizeUP();
-		}
+			int fruit = Util.keyboard.nextInt();
 
-		while (sizeUp > 2) {
-			System.out.println("다시 입력해주세요.");
-			sizeUp = Util.keyboard.nextInt();
-		}
-		order.add(orderBev.get(index));
+			if (fruit >=  Menu_Inter.BEV_BANANA && fruit <=  Menu_Inter.BEV_BANABERRY) {
+				
+				if (fruit == Menu_Inter.BEV_BANANA) {
+				orderBev.get(index).banana();
+
+				} else if (fruit == Menu_Inter.BEV_STRAWBERRY) {
+				orderBev.get(index).strawberry();
+
+				} else if (fruit == Menu_Inter.BEV_BANABERRY) {
+				orderBev.get(index).banaberry();
+
+				} else {
+				System.out.println("!!다시 입력!!");
+				fruit = Util.keyboard.nextInt();
+				}	
+				
+					System.out.println("설탕을 넣으시겠습니까? 1.네 2.아니요");
+
+					int sugarFree = Util.keyboard.nextInt();
+
+					if (sugarFree == 2) {
+					orderBev.get(index).sugarFree();
+					}	
+				}
+			}	
+
+
+		/*
+		 * 과일 항목 바꾸기전에 if문 - 오류 if (fruit == 1) { orderBev.get(index).banana();
+		 * 
+		 * } else if (fruit == 2) { orderBev.get(index).strawberry();
+		 * 
+		 * } else if (fruit == 3) { orderBev.get(index).banaberry();
+		 * 
+		 * } while (fruit > 3) { System.out.println("다시 입력해주세요."); fruit =
+		 * Util.keyboard.nextInt(); }
+		 */
+
+		// 설탕 함유량 선택
+
+
+	
+
+	System.out.println("사이즈업하시겠습니까? 1.예 2.아니오");
+
+	int sizeUp = Util.keyboard.nextInt();
+
+	if(sizeUp==1)
+	{
+		orderBev.get(index).sizeUP();
+	}
+
+	while(sizeUp>2)
+	{
+		System.out.println("다시 입력해주세요.");
+		sizeUp = Util.keyboard.nextInt();
+	}order.add(orderBev.get(index));
 	}
 
 	// 푸드 커스텀
@@ -310,11 +372,10 @@ public class MenuSelect {
 		order.add(orderFood.get(index));
 	}
 
-	
 	void checkOrder(int choice, int select) {
 		System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
 		System.out.print("주문상품: ");
-	
+
 		order.get(order.size() - 1).showProduct();
 
 		System.out.println("선택하신 상품이 맞으신가요?");
@@ -341,24 +402,25 @@ public class MenuSelect {
 
 	public void showMenuPlate() {
 		System.out.println("■■■■■■■■■■ 메 뉴 ■■■■■■■■■■ ");
-		
+
 		System.out.println("========== 음 료 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
-		for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
+
+		// 메뉴 보여주는 범위를 fruitjuice로 확장
+		for (int i = 0; i < Menu_Inter.FRUITJUICE; i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("========== 푸 드 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
-		
+
 		for (int i = Menu_Inter.CHEEZE - 1; i < menu.size(); i++) {
 			menu.get(i).showPrint();
 		}
 
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■ ");
 	}
-	
+
 //	
 //	public static void main(String[] args) {
 //		MenuSelect m = new MenuSelect();

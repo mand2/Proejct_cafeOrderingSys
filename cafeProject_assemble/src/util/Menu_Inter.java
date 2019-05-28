@@ -9,15 +9,16 @@ public interface Menu_Inter {
 	
 	
 	//메뉴 선택 시 쓰는 것들 
-	// 음료 & 푸드
-	public int AMERICANO = 1, CAPPUCHINO =2, SPARKLING =3, LEMONADE=4
-	,CHEEZE = 5, CHOCO = 6, COOCKIES = 7, SANDWITCHES =8;
+	// 음료 & 푸드 5에 fruit추가 6부터 shift
+	public int AMERICANO = 1, CAPPUCHINO =2, SPARKLING =3, LEMONADE=4, FRUITJUICE = 5
+	,CHEEZE = 6, CHOCO = 7, COOCKIES = 8, SANDWITCHES =9;
 	
 	
 	//음료인가 푸드인가
 	public int BEVERAGE = 1, FOOD = 2;
 
 	//음식은 1=안뎁힌거 음료1=차가운음료
-	int FOOD_COLD = 1,FOOD_HOT = 2, BEV_COLD = 1, BEV_HOT=2;
+	// 바나나 딸기 딸바 항목 추가
+	int FOOD_COLD = 1,FOOD_HOT = 2, BEV_COLD = 1, BEV_HOT=2, BEV_BANANA=1, BEV_STRAWBERRY=2, BEV_BANABERRY=3;
 
 }
