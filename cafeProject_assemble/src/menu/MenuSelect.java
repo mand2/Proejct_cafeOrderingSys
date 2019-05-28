@@ -246,12 +246,12 @@ public class MenuSelect {
 			break;
 
 		case Menu_Inter.SCONE:
-			orderFood.add(new Sandwiches());
+			orderFood.add(new Scone());
 			customFood(orderFood);
 			break;
 
 		case Menu_Inter.HONEY_BREAD:
-			orderFood.add(new Sandwiches());
+			orderFood.add(new Honeybread());
 			customFood(orderFood);
 			break;
 		}
@@ -303,8 +303,11 @@ public class MenuSelect {
 
 		System.out.println("선택하신 푸드: " + orderFood.get(index).getName());
 
-		// 샌드위치/쿠키만
-		if (f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches) {
+		// 
+		if ((f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches)
+				|| f.get(f.size() - 1) instanceof Scone || f.get(f.size() - 1) instanceof Honeybread 
+				|| f.get(f.size() - 1) instanceof Cheeze || f.get(f.size() - 1) instanceof Choco) {
+			
 			System.out.printf("%d.기본 %d.따뜻하게\n", Menu_Inter.FOOD_COLD, Menu_Inter.FOOD_HOT);
 
 			int answer = Util.keyboard.nextInt();
@@ -317,6 +320,31 @@ public class MenuSelect {
 
 			if (answer == Menu_Inter.FOOD_HOT) {
 				orderFood.get(index).noCold();
+			}
+
+			System.out.println("생크림 추가. (800 원)\n1.예 2.아니오");
+			int creamUp = Util.keyboard.nextInt();
+
+			if (creamUp == 1) {
+				orderFood.get(index).creamUP();
+			}
+
+			while (creamUp > 2) {
+				System.out.println("다시 입력해주세요.");
+				creamUp = Util.keyboard.nextInt();
+			}
+
+			System.out.println("시나몬 추가. (500 원)\n1.예 2.아니오");
+			int sinamonUp = Util.keyboard.nextInt();
+
+			if (sinamonUp == 1) {
+				orderFood.get(index).sinamonUP();
+			}
+
+			while (sinamonUp > 2) {
+				System.out.println("다시 입력해주세요.");
+				sinamonUp = Util.keyboard.nextInt();
+
 			}
 		}
 		order.add(orderFood.get(index));

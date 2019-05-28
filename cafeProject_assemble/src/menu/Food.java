@@ -11,6 +11,8 @@ abstract class Food extends Menu {
 	 * @honey: 기본이 정량, 2가 생크림 추가
 	 */
 	private String hot;
+	private String cream;
+	private String sinamon;
 
 	// 생성자
 	public Food() {
@@ -29,6 +31,18 @@ abstract class Food extends Menu {
 	public void noCold() {
 		this.hot = "따뜻한";
 	}
+	
+	public void creamUP() {
+		cream = "생크림";
+		setName(getName() + "(생크림 추가)");
+		setPrice(getPrice() + 800);
+	}
+	
+	public void sinamonUP() {
+		sinamon = "시나몬향";
+		setName(getName() + "(시나몬 추가)");
+		setPrice(getPrice() + 500);
+	}
 
 	@Override
 	public void showProduct() {
@@ -43,7 +57,7 @@ class Cheeze extends Food {
 
 		super();
 		this.setPrice(5500);
-		this.setName("치즈케익");
+		this.setName(" 치즈케이크");
 	}
 
 	@Override
@@ -60,7 +74,7 @@ class Choco extends Food {
 
 		super();
 		setPrice(6000);
-		setName("초코케이크");
+		setName(" 초코케이크");
 	}
 
 	@Override
@@ -76,19 +90,7 @@ class Cookies extends Food {
 
 		super();
 		setPrice(2800);
-		setName("쿠    키");
-	}
-	
-	void hotCookies() {
-		
-		setPrice(3300);
-		setName("따뜻한 쿠키");
-	}
-	
-	void Cookies() {
-		
-		setPrice(3300);
-		setName("쿠    키");
+		setName(" 쿠키      ");
 	}
 
 	@Override
@@ -104,19 +106,7 @@ class Sandwiches extends Food {
 
 		super();
 		setPrice(5600);
-		setName("샌드위치");
-	}
-	
-	void hotScone() {
-		
-		setPrice(3300);
-		setName("따뜻한 샌드위치");
-	}
-	
-	void Scone() {
-	
-		setPrice(3300);
-		setName("샌드위치");
+		setName(" 샌드위치  ");
 	}
 
 	@Override
@@ -130,19 +120,7 @@ class Scone extends Food {
 	public Scone() {
 		super();
 		setPrice(3300);
-		setName("스    콘");
-	}
-	
-	void hotScone() {
-		
-		setPrice(3300);
-		setName("따뜻한 스콘");
-	}
-	
-	void Scone() {
-	
-		setPrice(3300);
-		setName("스    콘");
+		setName(" 스콘      ");
 	}
 	
 	@Override
@@ -156,18 +134,6 @@ class Honeybread extends Food {
 		super();
 		setPrice(6000);
 		setName("허니브레드");
-	}
-	
-	void Honeybread() {
-	
-		setPrice(6000);
-		setName("허니브레드");
-	}
-	
-	void moreHoneybread() {
-	
-		setPrice(7000);
-		setName("생크림 허니브레드");
 	}
 	
 	@Override
