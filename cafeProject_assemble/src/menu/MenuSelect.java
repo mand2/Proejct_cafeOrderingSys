@@ -15,13 +15,13 @@ import java.util.*;
 import bitloco.Menu;
 import util.*;
 
-public class MenuSelect {
+public class MenuSelect extends Honeybread {
 	ArrayList<Menu> menu; // 메뉴판보여주기
 	ArrayList<Beverage> orderBev; // 주문시
 	ArrayList<Food> orderFood; // 주문
 	ArrayList<Menu> order; // 아리님께 넘길 객체
 	int cnt = 10;
-	int basket = 3; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
+	int basket = 10; // 주문 가능한 횟수. 최대 넣을 수 있는 수량.
 
 	public MenuSelect() {
 		this.menu = new ArrayList<Menu>();
@@ -41,9 +41,10 @@ public class MenuSelect {
 		for (Menu m : menu) {
 			m.setCnt(cnt);
 		}
-
+		ArrayList<Food> food = new ArrayList<Food>();
 		this.orderBev = new ArrayList<Beverage>();
 		this.orderFood = new ArrayList<Food>();
+
 
 		this.order = new ArrayList<Menu>(5);// 고객당 한번에 처리할 수 있는 주문.
 	}
@@ -157,23 +158,6 @@ public class MenuSelect {
 			System.out.println("주문 내역이 없습니다.");
 		}
 	}
-
-	// TODO 결제전 삭제
-	/*
-	 * void deleteOrder() {
-	 * System.out.println("----------------------------------------");
-	 * System.out.println("삭제할 메뉴가 있습니까? 1.예 2.아니오"); int delete =
-	 * Util.keyboard.nextInt(); if (delete == 1) { for (int i = 0; i < order.size();
-	 * i++) { System.out.print((i + 1) + "번: "); order.get(i).showProduct(); }
-	 * System.out.println("----------------------------------------");
-	 * System.out.println("삭제할 번호를 한번에 적어주세요. \',\' 로 나눠서 예) 1, 2");
-	 * Util.keyboard.nextLine(); String str = Util.keyboard.nextLine();
-	 * StringTokenizer st = new StringTokenizer(str, ", "); int[] array = new
-	 * int[basket]; while (st.hasMoreTokens()) { for (int i : array) { } array[i] =
-	 * Integer.parseInt(st.nextToken()); }
-	 * System.out.println("■■■■■■■■■■■■■■ 주문  확인 ■■■■■■■■■■■■■■ "); for (Menu o :
-	 * order) { o.showProduct(); } } }
-	 */
 
 	void orderProcess(int choice) {
 
@@ -303,11 +287,11 @@ public class MenuSelect {
 
 		System.out.println("선택하신 푸드: " + orderFood.get(index).getName());
 
-		// 
+		
 		if ((f.get(f.size() - 1) instanceof Cookies || f.get(f.size() - 1) instanceof Sandwiches)
-				|| f.get(f.size() - 1) instanceof Scone || f.get(f.size() - 1) instanceof Honeybread 
+				|| f.get(f.size() - 1) instanceof Scone || f.get(f.size() - 1) instanceof Honeybread
 				|| f.get(f.size() - 1) instanceof Cheeze || f.get(f.size() - 1) instanceof Choco) {
-			
+
 			System.out.printf("%d.기본 %d.따뜻하게\n", Menu_Inter.FOOD_COLD, Menu_Inter.FOOD_HOT);
 
 			int answer = Util.keyboard.nextInt();
@@ -326,7 +310,7 @@ public class MenuSelect {
 			int creamUp = Util.keyboard.nextInt();
 
 			if (creamUp == 1) {
-				orderFood.get(index).creamUP();
+				orderFood.get(index).addCream();
 			}
 
 			while (creamUp > 2) {
@@ -335,16 +319,27 @@ public class MenuSelect {
 			}
 
 			System.out.println("시나몬 추가. (500 원)\n1.예 2.아니오");
-			int sinamonUp = Util.keyboard.nextInt();
+			int addSinamon = Util.keyboard.nextInt();
 
-			if (sinamonUp == 1) {
-				orderFood.get(index).sinamonUP();
+			if (addSinamon == 1) {
+				orderFood.get(index).addSinamon();
 			}
 
-			while (sinamonUp > 2) {
+			while (addSinamon > 2) {
 				System.out.println("다시 입력해주세요.");
-				sinamonUp = Util.keyboard.nextInt();
+				addSinamon = Util.keyboard.nextInt();
+			}
+			
+			System.out.println("꿀 추가. (800 원)\n1.예 2.아니오");
+			int addHoney = Util.keyboard.nextInt();
 
+			if (addHoney == 1) {
+				orderFood.get(index).addHoney();
+			}
+
+			while (addHoney > 2) {
+				System.out.println("다시 입력해주세요.");
+				addHoney = Util.keyboard.nextInt();
 			}
 		}
 		order.add(orderFood.get(index));
@@ -397,10 +392,4 @@ public class MenuSelect {
 
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■ ");
 	}
-
-//	
-//	public static void main(String[] args) {
-//		MenuSelect m = new MenuSelect();
-//		m.showMenu();
-//	}
 }
