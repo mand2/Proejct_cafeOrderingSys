@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
  */
 
 import java.util.*;
-
 import bitloco.Menu;
 import util.*;
 
@@ -37,6 +36,7 @@ public class MenuSelect extends Honeybread {
 		menu.add(new Cappuchino());
 		menu.add(new Sparkling());
 		menu.add(new Lemonade());
+		menu.add(new FruitJuice());
 
 		menu.add(new Cheeze());
 		menu.add(new Choco());
@@ -48,7 +48,7 @@ public class MenuSelect extends Honeybread {
 		for (Menu m : menu) {
 			m.setCnt(cnt);
 		}
-		ArrayList<Food> food = new ArrayList<Food>();
+
 		this.orderBev = new ArrayList<Beverage>();
 		this.orderFood = new ArrayList<Food>();
 
@@ -64,7 +64,7 @@ public class MenuSelect extends Honeybread {
 			System.out.println("================= 음료 =================");
 			System.out.println("no |   상품명   |   가격   | 주문가능수량 ");
 
-			for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
+			for (int i = 0; i < Menu_Inter.FRUITJUICE; i++) {
 				System.out.print((i + 1) + "번| ");
 				menu.get(i).showPrint();
 				System.out.println("                                   " + menu.get(i).getCnt() + "개");
@@ -87,7 +87,7 @@ public class MenuSelect extends Honeybread {
 	}
 
 	public void showMenu(String id) { // 메뉴판보여주기
-		System.out.println("환영합니다. "+id+"고객님");
+		System.out.println("환영합니다. " + id + "고객님");
 
 		while (true) {
 			System.out.println("========================================");
@@ -172,7 +172,7 @@ public class MenuSelect extends Honeybread {
 		// @select : menuPlate내에서 1~4 or 5~8 선택할 때의 변수값.
 		int select = Util.keyboard.nextInt();
 
-		while (choice == Menu_Inter.BEVERAGE && select > Menu_Inter.LEMONADE || select < Menu_Inter.AMERICANO) {
+		while (choice == Menu_Inter.BEVERAGE && select > Menu_Inter.FRUITJUICE || select < Menu_Inter.AMERICANO) {
 			System.out.println("음료 번호를 입력해 주세요");
 			select = Util.keyboard.nextInt();
 		}
@@ -207,6 +207,12 @@ public class MenuSelect extends Honeybread {
 
 		case Menu_Inter.LEMONADE:
 			orderBev.add(new Lemonade());
+			customBev(orderBev);
+			break;
+
+		// fruitjuice추가
+		case Menu_Inter.FRUITJUICE:
+			orderBev.add(new FruitJuice());
 			customBev(orderBev);
 			break;
 
@@ -266,7 +272,54 @@ public class MenuSelect extends Honeybread {
 			}
 		} // hot<>iced change
 
+		// 딸기와 바나나를 선택
+		if (b.get(b.size() - 1) instanceof FruitJuice) {
+			System.out.printf("%d.바나나 %d.딸바 %d.초바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY,
+					Menu_Inter.BEV_CHOCO);
+
+			int fruit = Util.keyboard.nextInt();
+
+			if (fruit >= Menu_Inter.BEV_BANANA && fruit <= Menu_Inter.BEV_CHOCO) {
+
+				if (fruit == Menu_Inter.BEV_BANANA) {
+					orderBev.get(index).banana();
+
+				} else if (fruit == Menu_Inter.BEV_STRAWBERRY) {
+					orderBev.get(index).strawberry();
+
+				} else if (fruit == Menu_Inter.BEV_CHOCO) {
+					orderBev.get(index).choco();
+
+				} else {
+					System.out.println("!!다시 입력!!");
+					fruit = Util.keyboard.nextInt();
+				}
+
+				System.out.println("설탕을 넣으시겠습니까? 1.네 2.아니요");
+
+				int sugarFree = Util.keyboard.nextInt();
+
+				if (sugarFree == 2) {
+					orderBev.get(index).sugarFree();
+				}
+			}
+		}
+
+		/*
+		 * 과일 항목 바꾸기전에 if문 - 오류 if (fruit == 1) { orderBev.get(index).banana();
+		 * 
+		 * } else if (fruit == 2) { orderBev.get(index).strawberry();
+		 * 
+		 * } else if (fruit == 3) { orderBev.get(index).banaberry();
+		 * 
+		 * } while (fruit > 3) { System.out.println("다시 입력해주세요."); fruit =
+		 * Util.keyboard.nextInt(); }
+		 */
+
+		// 설탕 함유량 선택
+
 		System.out.println("사이즈업하시겠습니까? 1.예 2.아니오");
+
 		int sizeUp = Util.keyboard.nextInt();
 
 		if (sizeUp == 1) {
@@ -275,9 +328,27 @@ public class MenuSelect extends Honeybread {
 
 		while (sizeUp > 2) {
 			System.out.println("다시 입력해주세요.");
+
 			sizeUp = Util.keyboard.nextInt();
+
 		}
 		order.add(orderBev.get(index));
+
+		// 개인 컵을 사용하면 -500원 할인
+		System.out.println("개인 컵을 사용하시면 500원 할인됩니다. 개인컵을 사용하시겠습니까? 1.예 2.아니오");
+
+		int selfCup = Util.keyboard.nextInt();
+
+		if (selfCup == 1) {
+			orderBev.get(index).selfCup();
+		}
+
+		while (selfCup > 2) {
+			System.out.println("다시 입력해주세요");
+
+			selfCup = Util.keyboard.nextInt();
+
+		}
 	}
 
 	// 푸드 커스텀
@@ -379,7 +450,7 @@ public class MenuSelect extends Honeybread {
 		System.out.println("========== 음 료 ==========");
 		System.out.println("   상 품 명  |    가 격 ");
 
-		for (int i = 0; i < Menu_Inter.LEMONADE; i++) {
+		for (int i = 0; i < Menu_Inter.FRUITJUICE; i++) {
 			menu.get(i).showPrint();
 		}
 
