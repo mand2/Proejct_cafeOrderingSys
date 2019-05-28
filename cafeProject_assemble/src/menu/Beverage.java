@@ -22,14 +22,16 @@ abstract class Beverage extends Menu {
 
 	private String fruit;
 	private String sugar;
+	private String cup;
 
 	/* 생성자 */
 	public Beverage() {
 		super();
 		this.size = "small";
 		this.cold = "iced";
-		this.sugar = "";
 		this.fruit = "";
+		this.sugar = "";
+		this.cup = "";
 	}
 
 	// 사이즈업하는 메서드
@@ -43,26 +45,33 @@ abstract class Beverage extends Menu {
 		cold = "hot";
 	}
 
+	// 바나나를 위한 메소드
+	public void banana() {
+		fruit = "바나나";
+	}
+
+	// 딸바를 위한 메소드
+	public void strawberry() {
+		fruit = "딸바";
+	}
+
+	// 초바를 위한 메소드
+	public void choco() {
+		fruit = "초바";
+	}
+
 	// sugar free 메소드
 	public void sugarFree() {
 		sugar = "(sugar free)";
 	}
 
-	// 바나나를 위한 메소드
-	public void banana() {
-		fruit = "바나나 ";
+	// 개인컵 소지자를 위한 메소드
+	public void selfCup() {
+		
+		setPrice(getPrice() - 500);
 	}
 
-	// 딸기를 위한 메소드
-	public void strawberry() {
-		fruit = "딸기 ";
-	}
-
-	// 딸바를 위한 메소드
-	public void banaberry() {
-		fruit = "딸바 ";
-	}
-
+	
 	public String getSize() {
 		return this.size;
 	}
@@ -71,20 +80,25 @@ abstract class Beverage extends Menu {
 		return this.cold;
 	}
 
+	public String getFruit() {
+		return this.fruit;
+	}
+
 	public String getSugar() {
 		return this.sugar;
 	}
 
-	public String getfruit() {
-		return this.fruit;
+	public String getCup() {
+		return this.cup;
 	}
-
+	
+	
 	public abstract void showPrint();
 
 	@Override
 	public void showProduct() {
-		System.out.println(getSugar() + " " + getCold() + " " + getfruit() + " " + getName() + " " + getSize() + " | "
-				+ getPrice() + " 원");
+		System.out.println(getSugar() + " " + getCold() + " " + getFruit() + " " + getName() + " " + getSize() + " | "
+				+ getPrice() + " 원" + getCup()+" ");
 	}
 
 }
@@ -162,11 +176,11 @@ class FruitJuice extends Beverage {
 	public FruitJuice() {
 		super();
 		setPrice(4000);
-		setName("생과일 쥬스");
+		setName("과일 쥬스");
 	}
 
 	@Override
 	public void showPrint() {
-		System.out.println(getName() + "| " + getPrice() + " 원 (바나나,딸기,딸바)");
+		System.out.println(getName() + "  | " + getPrice() + " 원 (바나나,딸바,초바)");
 	}
 }

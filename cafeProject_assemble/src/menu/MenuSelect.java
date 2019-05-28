@@ -281,12 +281,12 @@ public class MenuSelect {
 		
 		// 딸기와 바나나를 선택
 		if (b.get(b.size() - 1) instanceof FruitJuice) {
-			System.out.printf("%d.바나나 %d.딸기 %d.딸바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY,
-					Menu_Inter.BEV_BANABERRY);
+			System.out.printf("%d.바나나 %d.딸바 %d.초바 \n", Menu_Inter.BEV_BANANA, Menu_Inter.BEV_STRAWBERRY,
+					Menu_Inter.BEV_CHOCO);
 
 			int fruit = Util.keyboard.nextInt();
 
-			if (fruit >=  Menu_Inter.BEV_BANANA && fruit <=  Menu_Inter.BEV_BANABERRY) {
+			if (fruit >=  Menu_Inter.BEV_BANANA && fruit <=  Menu_Inter.BEV_CHOCO) {
 				
 				if (fruit == Menu_Inter.BEV_BANANA) {
 				orderBev.get(index).banana();
@@ -294,8 +294,8 @@ public class MenuSelect {
 				} else if (fruit == Menu_Inter.BEV_STRAWBERRY) {
 				orderBev.get(index).strawberry();
 
-				} else if (fruit == Menu_Inter.BEV_BANABERRY) {
-				orderBev.get(index).banaberry();
+				} else if (fruit == Menu_Inter.BEV_CHOCO) {
+				orderBev.get(index).choco();
 
 				} else {
 				System.out.println("!!다시 입력!!");
@@ -333,17 +333,34 @@ public class MenuSelect {
 
 	int sizeUp = Util.keyboard.nextInt();
 
-	if(sizeUp==1)
-	{
+	if(sizeUp==1) {
 		orderBev.get(index).sizeUP();
 	}
 
-	while(sizeUp>2)
-	{
+	while(sizeUp>2) {
 		System.out.println("다시 입력해주세요.");
+		
 		sizeUp = Util.keyboard.nextInt();
+	
 	}order.add(orderBev.get(index));
+	
+	// 개인 컵을 사용하면 -500원 할인
+	System.out.println("개인 컵을 사용하시면 500원 할인됩니다. 개인컵을 사용하시겠습니까? 1.예 2.아니오");
+	
+	int selfCup = Util.keyboard.nextInt();
+	
+	if(selfCup ==1) {
+		orderBev.get(index).selfCup();
 	}
+	
+	while(selfCup>2) {
+		System.out.println("다시 입력해주세요");
+		
+		selfCup = Util.keyboard.nextInt();
+	
+	}
+}
+	
 
 	// 푸드 커스텀
 	void customFood(ArrayList<Food> f) {
@@ -384,6 +401,7 @@ public class MenuSelect {
 		// 상품재확인 1.맞다. 2.아니다(== order에서 빼라.)
 		choice = Util.keyboard.nextInt();
 
+		
 		while (choice > 2 || choice < 1) {
 			System.out.println("!!다시 입력!!");
 			choice = Util.keyboard.nextInt();

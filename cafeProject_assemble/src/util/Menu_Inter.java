@@ -19,6 +19,6 @@ public interface Menu_Inter {
 
 	//음식은 1=안뎁힌거 음료1=차가운음료
 	// 바나나 딸기 딸바 항목 추가
-	int FOOD_COLD = 1,FOOD_HOT = 2, BEV_COLD = 1, BEV_HOT=2, BEV_BANANA=1, BEV_STRAWBERRY=2, BEV_BANABERRY=3;
+	int FOOD_COLD = 1,FOOD_HOT = 2, BEV_COLD = 1, BEV_HOT=2, BEV_BANANA=1, BEV_STRAWBERRY=2, BEV_CHOCO=3;
 
 }
