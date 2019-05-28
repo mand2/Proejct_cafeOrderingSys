@@ -127,7 +127,7 @@ class Cookies extends Food {
 
 		super();
 		setPrice(2800);
-		setName("쿠키");
+		setName("쿠키      ");
 	}
 
 	@Override
@@ -143,7 +143,7 @@ class Sandwiches extends Food {
 
 		super();
 		setPrice(5600);
-		setName("샌드위치");
+		setName("샌드위치  ");
 	}
 
 	@Override
@@ -157,7 +157,7 @@ class Scone extends Food {
 	public Scone() {
 		super();
 		setPrice(3300);
-		setName("스콘");
+		setName("스콘      ");
 	}
 
 	@Override
