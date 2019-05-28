@@ -87,7 +87,7 @@ abstract class Food extends Menu {
 	}
 }
 
-//int CHEEZE = 5, CHOCO = 6, COOCKIES = 7, SANDWITCHES =8;
+
 class Cheeze extends Food {
 
 	public Cheeze() {

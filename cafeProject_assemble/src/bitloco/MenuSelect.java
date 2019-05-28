@@ -19,7 +19,7 @@ import java.util.*;
 import bitloco.Menu;
 import util.*;
 
-public class MenuSelect extends Honeybread {
+public class MenuSelect {
 	ArrayList<Menu> menu; // 메뉴판보여주기
 	ArrayList<Beverage> orderBev; // 주문시
 	ArrayList<Food> orderFood; // 주문
