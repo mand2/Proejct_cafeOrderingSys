@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.StringTokenizer;
 
 import bitloco.Menu;
 import util.Menu_Inter;
@@ -382,12 +383,15 @@ public class MenuSelect {
 		System.out.println("================= 메뉴 ================= ");
 		System.out.println("   상  품  명         |    가   격 ");
 		System.out.println("----------------------------------------");
-		
+		String str = "";
 		for (Menu e : order) {
 			total += e.getPrice();
 			e.showProduct();
+			str += e.toString();
+			str += ",";
 			System.out.println("----------------------------------------");
 		}
+		
 		
 		System.out.printf(" T O T A L :        ￦ %15d \n", total);
 		System.out.println("========================================");
@@ -404,6 +408,8 @@ public class MenuSelect {
 			
 			out.newLine();
 			out.write("----------------------------------------");
+			out.newLine();
+			out.write(str);
 			out.newLine();
 			out.write("  T O T A L :        ￦  " + total);
 			out.newLine();

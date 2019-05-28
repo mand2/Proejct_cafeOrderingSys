@@ -4,9 +4,9 @@ import bitloco.Menu;
 
 abstract class Food extends Menu {
 
-
 	/*
 	 * 변수선언
+	 * 
 	 * @hot: 기본이 따뜻X, 1로 초기화 (따뜻하면 2로) // 베이커리류만 오버라이딩하면 됨.
 	 */
 	private String hot;
@@ -30,6 +30,13 @@ abstract class Food extends Menu {
 	public void showProduct() {
 		System.out.println(getHot() + " " + getName() + " | " + getPrice() + " 원");
 	}
+
+	@Override
+	public String toString() {
+		String str = getHot() + " " + getName() + " | " + getPrice() + " 원";
+		return str;
+	}
+
 }
 
 //int CHEEZE = 5, CHOCO = 6, COOCKIES = 7, SANDWITCHES =8;
@@ -93,6 +100,6 @@ class Sandwiches extends Food {
 
 	@Override
 	public void showPrint() {
-			System.out.println(getName() + " | " + getPrice() + " 원");
+		System.out.println(getName() + " | " + getPrice() + " 원");
 	}
 }

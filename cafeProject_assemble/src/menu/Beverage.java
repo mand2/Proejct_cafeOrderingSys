@@ -47,6 +47,14 @@ abstract class Beverage extends Menu {
 		System.out.println(getCold() + " " + getName() + " " + getSize() + " | " + getPrice() + " 원");
 	}
 
+	@Override
+	public String toString() {
+		String str = getCold() + " " + getName() + " " + getSize() + " | " + getPrice() + " 원";
+		return str;
+	}
+	
+	
+
 }
 
 
@@ -64,6 +72,9 @@ class Americano extends Beverage {
 	public void showPrint() {
 		System.out.println(getName() + " | " + getPrice() + " 원");
 	}
+
+	
+	
 }
 
 
