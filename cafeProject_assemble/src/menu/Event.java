@@ -1,4 +1,4 @@
-package menu;
+package bitloco;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,7 +13,7 @@ public class Event extends MenuSelect {
 	MenuSelect m = new MenuSelect();
 	String id;
 	
-	public void randomCoffee() {
+	public void randomCoffee() throws IOException {
 		System.out.println("오늘의 음료를 추천하고 있는 중입니다.");
 
 		try {
@@ -29,7 +29,7 @@ public class Event extends MenuSelect {
 		}
 	}
 
-	public void randomFood() {
+	public void randomFood() throws IOException {
 		System.out.println("오늘의 FOOD를 추천하고 있는 중입니다.");
 
 		try {
@@ -148,49 +148,38 @@ public class Event extends MenuSelect {
 		}
 		
 	}
-	void showLastOrder(String id) throws IOException {
-			
-			System.out.println("[show" + loco + "'s Last Order]");
-			System.out.println((s.getInstance()));
-			//System.out.println(order.add(orderFood.s.getInstance()));
-			checkOrder();
-			showCurOrder();
-			showBill(id);
-			
-		
-	}
-	
-	private void checkOrder() {
-		// TODO Auto-generated method stub
-		System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
-		System.out.print("주문상품: ");
-
-		order.get(order.size() - 1).showProduct();
-
-		System.out.println("주문하시겠습니까?");
-		System.out.println("1. 예  2. 아니오");
-
-		// 상품재확인 1.맞다. 2.아니다(== order에서 빼라.)
-		int choice = Util.keyboard.nextInt();
-		int select = 1;
-		while (choice > 2 || choice < 1) {
-			System.out.println("!!다시 입력!!");
-			choice = Util.keyboard.nextInt();
-		}
-
-		if (choice == 2) {
-			order.remove(order.size() - 1);
-			System.out.println("메뉴창으로 다시 돌아갑니다.");
-			return;
-
-		} else if (choice == 1) {
-			int curCnt = menu.get(select - 1).getCnt();
-			menu.get(select - 1).setCnt(--curCnt);
-			
-		}
-	}
-
-
+	/*
+		 * void showLastOrder(String id) throws IOException {
+		 * 
+		 * System.out.println("[show" + loco + "'s Last Order]");
+		 * System.out.println((s.getInstance()));
+		 * //System.out.println(order.add(orderFood.s.getInstance())); checkOrder();
+		 * showCurOrder(); showBill(id);
+		 * 
+		 * 
+		 * }
+		 * 
+		 * private void checkOrder() { // TODO Auto-generated method stub
+		 * System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
+		 * System.out.print("주문상품: ");
+		 * 
+		 * order.get(order.size() - 1).showProduct();
+		 * 
+		 * System.out.println("주문하시겠습니까?"); System.out.println("1. 예  2. 아니오");
+		 * 
+		 * // 상품재확인 1.맞다. 2.아니다(== order에서 빼라.) int choice = Util.keyboard.nextInt();
+		 * int select = 1; while (choice > 2 || choice < 1) {
+		 * System.out.println("!!다시 입력!!"); choice = Util.keyboard.nextInt(); }
+		 * 
+		 * if (choice == 2) { order.remove(order.size() - 1);
+		 * System.out.println("메뉴창으로 다시 돌아갑니다."); return;
+		 * 
+		 * } else if (choice == 1) { int curCnt = menu.get(select - 1).getCnt();
+		 * menu.get(select - 1).setCnt(--curCnt);
+		 * 
+		 * } }
+		 * 
+		 */
 	void showEvent() throws IOException {
 		System.out.println("이벤트 창입니다.");
 
