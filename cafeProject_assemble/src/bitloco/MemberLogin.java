@@ -191,7 +191,7 @@ public class MemberLogin {
 			System.out.print("I      D :");
 			id = Util.keyboard.nextLine();
 		}
-		System.out.println("[edit" + loco.bit.get(id) + "'s Information]");
+		System.out.println("[edit "+ id +"'s information]");
 
 		System.out.print("PASSWORD :");
 		String pw = Util.keyboard.nextLine();
@@ -204,7 +204,7 @@ public class MemberLogin {
 
 		m = new MemberInfo(id, pw, name, pNum);
 		loco.bit.put(id, pw);
-		System.out.println(loco.bit.get(id) + "\n[Your edit is complete!]");
+		System.out.println("[your information has been updated.]");
 	}
 
 	// 회원정보 삭제
