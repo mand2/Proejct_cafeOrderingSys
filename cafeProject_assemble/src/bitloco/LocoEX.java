@@ -23,7 +23,7 @@ public class LocoEX {
 		
 		
      while(true) {
-		System.out.printf("%d. M E M B E R S \n%d. J O I N \n%d. M E N U \n%d. Q U I T\n",Menu_Inter.MEMBERS,Menu_Inter.JOIN,
+		System.out.printf("%d. 멤     버    스 \n%d. 회  원  가  입 \n%d. 메  뉴  보  기 \n%d. 종            료\n",Menu_Inter.MEMBERS,Menu_Inter.JOIN,
 				Menu_Inter.MENU,Menu_Inter.QUIT);
 	    System.out.println("===========================");
 	    System.out.print("Select Number:");
@@ -45,7 +45,7 @@ public class LocoEX {
 		case Menu_Inter.QUIT:
 			System.out.println();
 			System.out.println("  "+bitloco.getTime()+"종료!");
-			System.out.println("Thank you for using. \nPlease come again next time.\n             \t _ BITLOCO");
+			System.out.println("   이용해주셔서 감사합니다. \n   다음에 또 봐요 :)\n       \t_ BITLOCO");
 			return;
 			
 		default:

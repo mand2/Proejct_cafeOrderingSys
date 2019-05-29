@@ -44,7 +44,7 @@ public class MemberLogin {
 
 	// 로그인 메서드
 	public void login() throws IOException {
-		System.out.println("1. H O M E\n2. L O G I N");
+		System.out.println("1. 이 전 화 면\n2. 로   그   인");
 		System.out.print("Select Number:");
 		select = Util.keyboard.nextInt();
 		Util.keyboard.nextLine();
@@ -68,12 +68,12 @@ public class MemberLogin {
 				if (bit.containsKey(id)) {
 					if (bit.get(id).equals(pw)) {
 						System.out.println(getTime() + "접속!");
-						System.out.println("[ " + id + ", Signed in! ]");
+						System.out.println(id + "님 , 로그인하셨습니다.");
 						System.out.println("===========================");
 						System.out.println();
 						while (true) {
 							System.out.println("---------------------------");
-							System.out.println("1.M Y I N F O\n2.O R D E R\n3.A C C O U T\n4.E V E N T \n5.H O M E");
+							System.out.println("1.나  의  정  보\n2.주  문  하  기\n3.이     벤    트 \n4.이  전  화  면");
 							System.out.println("---------------------------");
 							System.out.print("Select Number:");
 							select = Util.keyboard.nextInt();
@@ -90,22 +90,18 @@ public class MemberLogin {
 								} else if (select == 3) {
 									deleteInfo();
 								} else if (select == 4) {
-									System.out.println("[Back to the Menu.]");
+									System.out.println("이전화면으로 돌아갑니다.");
 								}
 								break;
 
 							case 2:
 								plate.showMenu(id);
 								break;
-
 							case 3:
-								System.out.println("영수증을 볼 수 있습니다.");
-								break;
-							case 4:
 								e.showEvent();
 								break;
-							case 5:
-								System.out.println("초기화면으로 돌아갑니다.");
+							case 4:
+								System.out.println("이전화면으로 돌아갑니다.");
 								return;
 							}
 						} // while 문
@@ -125,7 +121,7 @@ public class MemberLogin {
 					case 1:
 						joinMember();
 					case 2:
-						System.out.println("초기화면으로 돌아갑니다.");
+						System.out.println("홈화면으로 돌아갑니다.");
 						return;
 					}
 
@@ -152,12 +148,12 @@ public class MemberLogin {
 
 //				m = null;
 		Util.keyboard.nextLine();
-		System.out.println("PLEASE COMPLETE A FORM!");
+		System.out.println("회원가입 양식에 따라 입력해주세요!");
 		System.out.print("I      D :");
 		String id = Util.keyboard.nextLine();
 
 		while (loco.bit.containsKey(id)) {
-			System.out.println("The ID is using.Please re-enter.");
+			System.out.println("ID가 사용중입니다.다시 입력해주세요.");
 			System.out.print("I      D :");
 			id = Util.keyboard.nextLine();
 		}
@@ -171,7 +167,7 @@ public class MemberLogin {
 		String pNum = Util.keyboard.nextLine();
 
 		m = new MemberInfo(id, pw, name, pNum);
-		System.out.println("[THANKS FOR JOINING US. ]");
+		System.out.println(id+"님, "+"회원가입 되었습니다. ");
 		mList.add(m);
 
 		loco.bit.put(id, pw);

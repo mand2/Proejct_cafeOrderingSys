@@ -4,38 +4,46 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+import java.util.InputMismatchException;
 import util.*;
 import bitloco.Menu;
 
 public class Event extends MenuSelect {
+	MemberLogin mLog;
 	MenuSelect m = new MenuSelect();
 	String id;
 
 	public void randomCoffee() throws IOException {
 		System.out.println("오늘의 음료를 추천하고 있는 중입니다.");
 
-		int choice = (int) (Math.random() * 4 + 1);
-		custum(choice);
-		showCurOrder();
-		checkOrder(choice);
-		showBill(id);
+		try {
+			Thread.sleep(2000);
+			int choice = (int) (Math.random() * 4 + 1);
+			custum(choice);
+			showCurOrder();
+			checkOrder(choice);
+			showBill(id);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void randomFood() throws IOException {
 		System.out.println("오늘의 FOOD를 추천하고 있는 중입니다.");
 
-		int choice = (int) (Math.random() * 6 + 5);
-		custum(choice);
-		showCurOrder();
-		checkOrder(choice);
-		showBill(id);
-	}
-
-	@Override
-	void custum(int choice) {
-		// TODO Auto-generated method stub
-		super.custum(choice);
+		try {
+			Thread.sleep(2000);
+			int choice = (int) (Math.random() * 6 + 5);
+			custum(choice);
+			showCurOrder();
+			checkOrder(choice);
+			showBill(id);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -125,14 +133,76 @@ public class Event extends MenuSelect {
 			order.remove(order.size() - 1);
 			System.out.println("메뉴창으로 다시 돌아갑니다.");
 			return;
-			
+
 		} else if (choice == 1) {
 
 			int curCnt = menu.get(select - 1).getCnt();
 			menu.get(select - 1).setCnt(--curCnt);
-			m.billFormat(id);
-			m.getOrderTime();
+			//m.billFormat(id);
+			//m.getOrderTime();
 		}
+
+	}
+	/*
+	 * void showLastOrder(String id) throws IOException {
+	 * 
+	 * System.out.println("[show" + loco + "'s Last Order]");
+	 * System.out.println((s.getInstance()));
+	 * //System.out.println(order.add(orderFood.s.getInstance())); checkOrder();
+	 * showCurOrder(); showBill(id);
+	 * 
+	 * 
+	 * }
+	 */
+
+	/*
+	 * private void checkOrder() { // TODO Auto-generated method stub
+	 * System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
+	 * System.out.print("주문상품: ");
+	 * 
+	 * order.get(order.size() - 1).showProduct();
+	 * 
+	 * System.out.println("주문하시겠습니까?"); System.out.println("1. 예  2. 아니오");
+	 * 
+	 * // 상품재확인 1.맞다. 2.아니다(== order에서 빼라.) int choice = Util.keyboard.nextInt();
+	 * int select = 1; while (choice > 2 || choice < 1) {
+	 * System.out.println("!!다시 입력!!"); choice = Util.keyboard.nextInt(); }
+	 * 
+	 * if (choice == 2) { order.remove(order.size() - 1);
+	 * System.out.println("메뉴창으로 다시 돌아갑니다."); return;
+	 * 
+	 * } else if (choice == 1) { int curCnt = menu.get(select - 1).getCnt();
+	 * menu.get(select - 1).setCnt(--curCnt);
+	 * 
+	 * } }
+	 */
+
+	@Override
+	void showBill(String id) {
+		
+			int choice = 2;
+		if (!(choice < 1 || choice > 2)){
+			System.out.println("결제 하시겠습니까?");
+			System.out.println("1. 예\t2. 아니오");
+			choice = Util.keyboard.nextInt();
+			
+			if(choice == 1){
+				if (order.size() != 0) {
+					System.out.println("....결제창으로 넘어갑니다....\n");
+					try{
+						billFormat(id);
+						m.getOrderTime();
+						System.out.println("주문이 완료되었습니다.");
+					}catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					System.out.println("주문 내역이 없습니다.");
+			}
+		}
+		}
+		//if문 종료 
 		
 	}
 
@@ -152,7 +222,7 @@ public class Event extends MenuSelect {
 				randomFood();
 				break;
 			case 3:
-				// last.lastOrder();
+				System.out.println("직전 주문내역을 주문한다.");
 				break;
 
 			case 4:
@@ -162,3 +232,6 @@ public class Event extends MenuSelect {
 		}
 	}
 }
+
+
+
