@@ -1,5 +1,9 @@
 package bitloco;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -8,11 +12,12 @@ import java.util.ArrayList;
 import util.*;
 import bitloco.Menu;
 
+
 public class Event extends MenuSelect {
 	MemberLogin mLog;
 	MenuSelect m = new MenuSelect();
 	String id;
-	
+
 	public void randomCoffee() throws IOException {
 		System.out.println("오늘의 음료를 추천하고 있는 중입니다.");
 
@@ -27,6 +32,7 @@ public class Event extends MenuSelect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	public void randomFood() throws IOException {
@@ -137,49 +143,106 @@ public class Event extends MenuSelect {
 		if (choice == 2) {
 			order.remove(order.size() - 1);
 			System.out.println("메뉴창으로 다시 돌아갑니다.");
-			return ;
-			
+			return;
+
 		} else if (choice == 1) {
 
 			int curCnt = menu.get(select - 1).getCnt();
 			menu.get(select - 1).setCnt(--curCnt);
-			m.billFormat(id);
-			m.getOrderTime();
+			//m.billFormat(id);
+			//m.getOrderTime();
 		}
-		
+
 	}
 	/*
-		 * void showLastOrder(String id) throws IOException {
-		 * 
-		 * System.out.println("[show" + loco + "'s Last Order]");
-		 * System.out.println((s.getInstance()));
-		 * //System.out.println(order.add(orderFood.s.getInstance())); checkOrder();
-		 * showCurOrder(); showBill(id);
-		 * 
-		 * 
-		 * }
-		 * 
-		 * private void checkOrder() { // TODO Auto-generated method stub
-		 * System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
-		 * System.out.print("주문상품: ");
-		 * 
-		 * order.get(order.size() - 1).showProduct();
-		 * 
-		 * System.out.println("주문하시겠습니까?"); System.out.println("1. 예  2. 아니오");
-		 * 
-		 * // 상품재확인 1.맞다. 2.아니다(== order에서 빼라.) int choice = Util.keyboard.nextInt();
-		 * int select = 1; while (choice > 2 || choice < 1) {
-		 * System.out.println("!!다시 입력!!"); choice = Util.keyboard.nextInt(); }
-		 * 
-		 * if (choice == 2) { order.remove(order.size() - 1);
-		 * System.out.println("메뉴창으로 다시 돌아갑니다."); return;
-		 * 
-		 * } else if (choice == 1) { int curCnt = menu.get(select - 1).getCnt();
-		 * menu.get(select - 1).setCnt(--curCnt);
-		 * 
-		 * } }
-		 * 
-		 */
+	 * void showLastOrder(String id) throws IOException {
+	 * 
+	 * System.out.println("[show" + loco + "'s Last Order]");
+	 * System.out.println((s.getInstance()));
+	 * //System.out.println(order.add(orderFood.s.getInstance())); checkOrder();
+	 * showCurOrder(); showBill(id);
+	 * 
+	 * 
+	 * }
+	 */
+
+	/*
+	 * private void checkOrder() { // TODO Auto-generated method stub
+	 * System.out.println("■■■■■■■■■■■■■■ 주문 확인 ■■■■■■■■■■■■■■ ");
+	 * System.out.print("주문상품: ");
+	 * 
+	 * order.get(order.size() - 1).showProduct();
+	 * 
+	 * System.out.println("주문하시겠습니까?"); System.out.println("1. 예  2. 아니오");
+	 * 
+	 * // 상품재확인 1.맞다. 2.아니다(== order에서 빼라.) int choice = Util.keyboard.nextInt();
+	 * int select = 1; while (choice > 2 || choice < 1) {
+	 * System.out.println("!!다시 입력!!"); choice = Util.keyboard.nextInt(); }
+	 * 
+	 * if (choice == 2) { order.remove(order.size() - 1);
+	 * System.out.println("메뉴창으로 다시 돌아갑니다."); return;
+	 * 
+	 * } else if (choice == 1) { int curCnt = menu.get(select - 1).getCnt();
+	 * menu.get(select - 1).setCnt(--curCnt);
+	 * 
+	 * } }
+	 */
+
+	@Override
+	void showBill(String id) {
+		System.out.println("결제 하시겠습니까?");
+		System.out.println("1. 예\t2. 아니오");
+		try {
+		int choice = Util.keyboard.nextInt();
+		if (!(choice < 1 || choice > 2)){
+			if(choice == 1){
+				if (order.size() != 0) {
+					System.out.println("....결제창으로 넘어갑니다....\n");
+					try{
+						billFormat(id);
+						m.getOrderTime();
+						System.out.println("주문이 완료되었습니다.");
+					}catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					System.out.println("주문 내역이 없습니다.");
+			}
+		}else {
+			System.out.println("1 혹은 2만 입력해주세요.");
+			return;
+		}
+		}//if문 종료
+		
+		}catch (InputMismatchException e){
+			System.out.println("숫자만 입력해 주세요.");
+		}
+
+		 
+	}
+	//지난 주문 영수증 출력 
+	void showlastOrder() throws IOException{
+		File file = new File("C:\\Users\\5CLASS-184\\Documents\\javaClass\\Cafe\\bill.txt");
+		FileReader fileReader;
+		try {
+			fileReader = new FileReader(file);
+			BufferedReader bReader = new BufferedReader(fileReader);
+			String line="";
+			while((line = bReader.readLine()) != null) {
+				System.out.println(line);
+			}bReader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		//chechOrder();//읽어온 파일에 같은 단어를 찾아서 불러오고 싶었는데 결국 실패..
+		
+		//billFormat(id);
+		
+	}
+
 	void showEvent() throws IOException {
 		System.out.println("이벤트 창입니다.");
 
