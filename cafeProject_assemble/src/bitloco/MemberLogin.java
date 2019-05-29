@@ -45,7 +45,7 @@ public class MemberLogin {
 	// 로그인 메서드
 	public void login() throws IOException {
 		System.out.println("1. 이 전 화 면\n2. 로   그   인");
-		System.out.print("Select Number:");
+		System.out.print("번호를 입력해 주세요:");
 		select = Util.keyboard.nextInt();
 		Util.keyboard.nextLine();
 		if (select == 1) {
@@ -73,9 +73,9 @@ public class MemberLogin {
 						System.out.println();
 						while (true) {
 							System.out.println("---------------------------");
-							System.out.println("1.나  의  정  보\n2.주  문  하  기\n3.이     벤    트 \n4.이  전  화  면");
+							System.out.println("1.회  원  관  리\n2.주  문  하  기\n3.이     벤    트 \n4.이  전  화  면");
 							System.out.println("---------------------------");
-							System.out.print("Select Number:");
+							System.out.print("번호를 입력해 주세요:");
 							select = Util.keyboard.nextInt();
 							Util.keyboard.nextLine();
 							cafe: switch (select) {
@@ -108,14 +108,14 @@ public class MemberLogin {
 
 //					return;
 					} else {
-						System.out.println("[Password do not match]");
+						System.out.println("비밀번호가 일치하지 않습니다.");
 						return;
 					} // else문 종료 (비밀번호가 일치하지 않는 회원)
 				} else {
 					System.out.println("[존재하지 않는 회원입니다.다시 확인해주세요.]");
 					System.out.println("회원가입하시겠습니까?");
-					System.out.println("1. J O I N \n2. H O M E ");
-					System.out.print("Select Number:");
+					System.out.println("1. 회  원  가  입  \n2. 이  전  화  면 ");
+					System.out.print("번호를 입력해 주세요:");
 					select = Util.keyboard.nextInt();
 					switch (select) {
 					case 1:
@@ -134,10 +134,9 @@ public class MemberLogin {
 	// Members 안에 선택창
 	public int first() {
 		System.out.println("===========================");
-		System.out.println("please select number :)");
-		System.out.println("1. I N F O\n2. E D I T\n3. D E L E T E\n4. H O M E");
+		System.out.println("1. 나  의  정  보 \n2. 수            정\n3. 삭            제\n4. 이  전  화  면 ");
 		System.out.println("===========================");
-		System.out.print("Select Number:");
+		System.out.print("번호를 입력해 주세요:");
 		select = Util.keyboard.nextInt();
 		Util.keyboard.nextLine();
 		return select;
@@ -146,7 +145,7 @@ public class MemberLogin {
 	// 회원가입
 	public void joinMember() {
 
-//				m = null;
+
 		Util.keyboard.nextLine();
 		System.out.println("회원가입 양식에 따라 입력해주세요!");
 		System.out.print("I      D :");
@@ -179,18 +178,12 @@ public class MemberLogin {
 		String id = Util.keyboard.nextLine();
 
 		while (searchIndex(id) < 0) {
-			System.out.println("wrong ID!");
+			System.out.println("아이디가 일치하지 않습니다.");
 			System.out.print("I      D :");
 			id = Util.keyboard.nextLine();
 		}
 
-//				int index = searchIndex(id);
-//				if(!(mList.get(index).equals(m))) {
-//					System.out.println("wrong ID!");
-//					System.out.print("I      D :");
-//					id = Util.keyboard.nextLine();
-//				}
-		System.out.println("[edit" + loco.bit.get(id) + "'s Information]");
+		System.out.println("["+id+"님의 정보를 수정합니다]");
 
 		System.out.print("PASSWORD :");
 		String pw = Util.keyboard.nextLine();
@@ -205,7 +198,7 @@ public class MemberLogin {
 		int index = searchIndex(id);
 		mList.add(index, m);
 		loco.bit.put(id, pw);
-		System.out.println(loco.bit.get(id) + "\n[Your edit is complete!]");
+		System.out.println(id + "님의 정보가 정상적으로 수정되었습니다.");
 	}
 
 	// 회원정보 삭제
@@ -227,10 +220,10 @@ public class MemberLogin {
 		if (bit.get(id) != null && bit.get(id).equals(pw)) {
 			mList.remove(searchIndex(id));
 			bit.remove(id, pw);
-			System.out.println("회원 정보가 확인되었습니다.\n등록된 정보를 삭제합니다.");
+			System.out.println("회원 정보가 확인되었습니다.");
 			System.out.println("---------------------------");
 		}
-		System.out.println("[Your ID has been successfully deleted!]");
+		System.out.println("정보가 정상적으로 삭제되었습니다.");
 		return;
 	}
 
@@ -342,7 +335,6 @@ public class MemberLogin {
 	}
 
 }
-
 
 
 
